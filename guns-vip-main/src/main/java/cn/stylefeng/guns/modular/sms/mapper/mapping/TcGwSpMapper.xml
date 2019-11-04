@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.sms.mapper.TcGwSpMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.sms.entity.TcGwSp">
+        <id column="spid" property="spid" />
+        <result column="spname" property="spname" />
+        <result column="remark" property="remark" />
+        <result column="adddate" property="adddate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        spid AS "spid", spname AS "spname", remark AS "remark", adddate AS "adddate"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.TcGwSpResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TcGwSpParam">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_gw_sp where 1 = 1
+            <if test="paramCondition.spname != null and paramCondition.spname != ''">
+                and spname like CONCAT('%',#{paramCondition.spname},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TcGwSpParam">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_gw_sp where 1 = 1
+            <if test="paramCondition.spname != null and paramCondition.spname != ''">
+                and spname like CONCAT('%',#{paramCondition.spname},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.TcGwSpResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TcGwSpParam">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_gw_sp where 1 = 1
+            <if test="paramCondition.spname != null and paramCondition.spname != ''">
+                and spname like CONCAT('%',#{paramCondition.spname},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TcGwSpParam">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_gw_sp where 1 = 1
+            <if test="paramCondition.spname != null and paramCondition.spname != ''">
+                and spname like CONCAT('%',#{paramCondition.spname},'%')
+            </if>
+    </select>
+
+</mapper>

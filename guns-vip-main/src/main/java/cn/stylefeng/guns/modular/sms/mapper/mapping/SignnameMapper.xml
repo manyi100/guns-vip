@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.sms.mapper.SignnameMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.sms.entity.Signname">
+        <id column="signid" property="signid" />
+        <result column="signname" property="signname" />
+        <result column="entid" property="entid" />
+        <result column="signtype" property="signtype" />
+        <result column="remark" property="remark" />
+        <result column="status" property="status" />
+        <result column="adddate" property="adddate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        signid AS "signid", signname AS "signname", entid AS "entid", signtype AS "signtype", remark AS "remark", status AS "status", adddate AS "adddate"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.SignnameResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.SignnameParam">
+        select
+        <include refid="Base_Column_List"/>
+        from signname where 1 = 1
+            <if test="paramCondition.signname != null and paramCondition.signname != ''">
+                and signname like CONCAT('%',#{paramCondition.signname},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.SignnameParam">
+        select
+        <include refid="Base_Column_List"/>
+        from signname where 1 = 1
+            <if test="paramCondition.signname != null and paramCondition.signname != ''">
+                and signname like CONCAT('%',#{paramCondition.signname},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.SignnameResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.SignnameParam">
+        select
+        <include refid="Base_Column_List"/>
+        from signname where 1 = 1
+            <if test="paramCondition.signname != null and paramCondition.signname != ''">
+                and signname like CONCAT('%',#{paramCondition.signname},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.SignnameParam">
+        select
+        <include refid="Base_Column_List"/>
+        from signname where 1 = 1
+            <if test="paramCondition.signname != null and paramCondition.signname != ''">
+                and signname like CONCAT('%',#{paramCondition.signname},'%')
+            </if>
+    </select>
+
+</mapper>

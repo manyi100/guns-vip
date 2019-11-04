@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.sms.mapper.TGwSpConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.sms.entity.TGwSpConfig">
+        <id column="spnumId" property="spnumId" />
+        <result column="protocolId" property="protocolId" />
+        <result column="spId" property="spId" />
+        <result column="entId" property="entId" />
+        <result column="spnumIp" property="spnumIp" />
+        <result column="spnumPort" property="spnumPort" />
+        <result column="spnum" property="spnum" />
+        <result column="spnumBody" property="spnumBody" />
+        <result column="spnumPass" property="spnumPass" />
+        <result column="sendSpeed" property="sendSpeed" />
+        <result column="balance" property="balance" />
+        <result column="price" property="price" />
+        <result column="province" property="province" />
+        <result column="channelNum" property="channelNum" />
+        <result column="entmsnUse" property="entmsnUse" />
+        <result column="gwStation" property="gwStation" />
+        <result column="blockarea" property="blockarea" />
+        <result column="remark" property="remark" />
+        <result column="clientIp" property="clientIp" />
+        <result column="version" property="version" />
+        <result column="status" property="status" />
+        <result column="submitdate" property="submitdate" />
+        <result column="dealdate" property="dealdate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        spnumId AS "spnumId", protocolId AS "protocolId", spId AS "spId", entId AS "entId", spnumIp AS "spnumIp", spnumPort AS "spnumPort", spnum AS "spnum", spnumBody AS "spnumBody", spnumPass AS "spnumPass", sendSpeed AS "sendSpeed", balance AS "balance", price AS "price", province AS "province", channelNum AS "channelNum", entmsnUse AS "entmsnUse", gwStation AS "gwStation", blockarea AS "blockarea", remark AS "remark", clientIp AS "clientIp", version AS "version", status AS "status", submitdate AS "submitdate", dealdate AS "dealdate"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.TGwSpConfigResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_gw_sp_config where 1 = 1
+            <if test="paramCondition.protocolId != null and paramCondition.protocolId != ''">
+                and protocolId like CONCAT('%',#{paramCondition.protocolId},'%')
+            </if>
+            <if test="paramCondition.spId != null and paramCondition.spId != ''">
+                and spId like CONCAT('%',#{paramCondition.spId},'%')
+            </if>
+            <if test="paramCondition.spnum != null and paramCondition.spnum != ''">
+                and spnum like CONCAT('%',#{paramCondition.spnum},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_gw_sp_config where 1 = 1
+            <if test="paramCondition.protocolId != null and paramCondition.protocolId != ''">
+                and protocolId like CONCAT('%',#{paramCondition.protocolId},'%')
+            </if>
+            <if test="paramCondition.spId != null and paramCondition.spId != ''">
+                and spId like CONCAT('%',#{paramCondition.spId},'%')
+            </if>
+            <if test="paramCondition.spnum != null and paramCondition.spnum != ''">
+                and spnum like CONCAT('%',#{paramCondition.spnum},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.TGwSpConfigResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_gw_sp_config where 1 = 1
+            <if test="paramCondition.protocolId != null and paramCondition.protocolId != ''">
+                and protocolId like CONCAT('%',#{paramCondition.protocolId},'%')
+            </if>
+            <if test="paramCondition.spId != null and paramCondition.spId != ''">
+                and spId like CONCAT('%',#{paramCondition.spId},'%')
+            </if>
+            <if test="paramCondition.spnum != null and paramCondition.spnum != ''">
+                and spnum like CONCAT('%',#{paramCondition.spnum},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_gw_sp_config where 1 = 1
+            <if test="paramCondition.protocolId != null and paramCondition.protocolId != ''">
+                and protocolId like CONCAT('%',#{paramCondition.protocolId},'%')
+            </if>
+            <if test="paramCondition.spId != null and paramCondition.spId != ''">
+                and spId like CONCAT('%',#{paramCondition.spId},'%')
+            </if>
+            <if test="paramCondition.spnum != null and paramCondition.spnum != ''">
+                and spnum like CONCAT('%',#{paramCondition.spnum},'%')
+            </if>
+    </select>
+
+</mapper>

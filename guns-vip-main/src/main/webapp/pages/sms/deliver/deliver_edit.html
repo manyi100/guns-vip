@@ -1,0 +1,77 @@
+@layout("/common/_container.html",{js:["/assets/sms/deliver/deliver_edit.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">修改</span>
+</div>
+
+<div class="layui-fluid " style="">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form id="deliverForm" lay-filter="deliverForm" class="layui-form model-form" style="max-width: 700px;margin: 40px auto;">
+                <input name="deliverId" type="hidden"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">接入码<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="entityName" name="entityName" placeholder="请输入接入码" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Msgid<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="msgId" name="msgId" placeholder="请输入Msgid" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">源号码<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="destid" name="destid" placeholder="请输入源号码" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">目的号码<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="srcterminalid" name="srcterminalid" placeholder="请输入目的号码" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">上行内容<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="msgContent" name="msgContent" placeholder="请输入上行内容" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">sequenceId<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="sequenceId" name="sequenceId" placeholder="请输入sequenceId" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态0,未发送，1己发送<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="status" name="status" placeholder="请输入状态0,未发送，1己发送" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">提交时间<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="submitDate" name="submitDate" placeholder="请输入提交时间" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">处理时间<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="dealDate" name="dealDate" placeholder="请输入处理时间" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+                        <button class="layui-btn layui-btn-primary" type="button" id="backupPage">&emsp;返回&emsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@}

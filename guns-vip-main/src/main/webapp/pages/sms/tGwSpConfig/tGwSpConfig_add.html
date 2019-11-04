@@ -1,0 +1,160 @@
+@layout("/common/_container.html",{js:["/assets/sms/tGwSpConfig/tGwSpConfig_add.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">添加</span>
+</div>
+
+<div class="layui-fluid " style="">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form id="tGwSpConfigForm" lay-filter="tGwSpConfigForm" class="layui-form model-form" style="max-width: 700px;margin: 40px auto;">
+                <input name="spnumId" type="hidden"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">协议ID<span style="color: red;">*</span></label>
+<!--                    <div class="layui-input-block">-->
+<!--                        <input id="protocolId1" name="protocolId" placeholder="请输入协议ID，1，SMPP，2，SMGP，3，CNGP，4，CMPP，5，SGIP" type="text" class="layui-input" lay-verify="required" required/>-->
+<!--                    </div>-->
+
+                    <div class="layui-form layui-inline">
+                    <select id="protocolId" name="protocolId">
+                        <option value="">短信协议</option>
+                        <option value="1">SMPP</option>
+                        <option value="2">SMGP</option>
+                        <option value="3">CNGP</option>
+                        <option value="4">CMPP</option>
+                        <option value="5">SGIP</option>
+
+                    </select>
+                </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">运营商ID<span style="color: red;">*</span></label>
+<!--                    <div class="layui-input-block">-->
+<!--                        <input id="spId" name="spId" placeholder="请输入运营商ID，1，电信，2，网通 3，移动 4，联通  (注意发送电信就填电信，移动 就选 移动)" type="text" class="layui-input" lay-verify="required" required/>-->
+<!--                    </div>-->
+                    <div class="layui-form  layui-inline">
+                        <select id="spId" name="spId" >
+                            <option value="">运营商</option>
+                            <option value="1">中国电信</option>
+                            <option value="2">中国网通</option>
+                            <option value="3">中国移动</option>
+                            <option value="4">中国联通</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">企业ID<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="entId" name="entId" placeholder="请输入企业ID，0，管理员，1，2，3" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">接入号IP<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="spnumIp" name="spnumIp" placeholder="请输入接入号IP" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">端口号<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="spnumPort" name="spnumPort" placeholder="请输入端口号" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">SP号码<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="spnum" name="spnum" placeholder="请输入SP号码" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">帐号<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="spnumBody" name="spnumBody" placeholder="请输入帐号" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="spnumPass" name="spnumPass" placeholder="请输入密码" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">发送速率<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="sendSpeed" name="sendSpeed" placeholder="请输入发送速率" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">余额<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="balance" name="balance" placeholder="请输入余额" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">单价(分)<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="price" name="price" placeholder="请输入单价，分" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">落地省份<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="province" name="province" placeholder="请输入落地省份" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">通道数量<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="channelNum" name="channelNum" placeholder="请输入通道数量" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用途：0,管理员，1，客户端<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="entmsnUse" name="entmsnUse" placeholder="请输入用途：0,管理员，1，客户端" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">网关标记<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="gwStation" name="gwStation" placeholder="请输入网关标记" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">屏蔽区域<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="blockarea" name="blockarea" placeholder="请输入屏蔽区域，格式如下：北京，南京，上海" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="remark" name="remark" placeholder="请输入备注" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">客户端IP<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="clientIp" name="clientIp" placeholder="请输入客户端IP" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">版本号<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="version" name="version" placeholder="请输入版本号" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+                        <button class="layui-btn layui-btn-primary" type="button" id="backupPage">&emsp;返回&emsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.sms.mapper.TcGwProtocolMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.sms.entity.TcGwProtocol">
+        <id column="protocolid" property="protocolid" />
+        <result column="protocolname" property="protocolname" />
+        <result column="chsname" property="chsname" />
+        <result column="remark" property="remark" />
+        <result column="adddate" property="adddate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        protocolid AS "protocolid", protocolname AS "protocolname", chsname AS "chsname", remark AS "remark", adddate AS "adddate"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.TcGwProtocolResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TcGwProtocolParam">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_gw_protocol where 1 = 1
+            <if test="paramCondition.protocolname != null and paramCondition.protocolname != ''">
+                and protocolname like CONCAT('%',#{paramCondition.protocolname},'%')
+            </if>
+            <if test="paramCondition.chsname != null and paramCondition.chsname != ''">
+                and chsname like CONCAT('%',#{paramCondition.chsname},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TcGwProtocolParam">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_gw_protocol where 1 = 1
+            <if test="paramCondition.protocolname != null and paramCondition.protocolname != ''">
+                and protocolname like CONCAT('%',#{paramCondition.protocolname},'%')
+            </if>
+            <if test="paramCondition.chsname != null and paramCondition.chsname != ''">
+                and chsname like CONCAT('%',#{paramCondition.chsname},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.TcGwProtocolResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TcGwProtocolParam">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_gw_protocol where 1 = 1
+            <if test="paramCondition.protocolname != null and paramCondition.protocolname != ''">
+                and protocolname like CONCAT('%',#{paramCondition.protocolname},'%')
+            </if>
+            <if test="paramCondition.chsname != null and paramCondition.chsname != ''">
+                and chsname like CONCAT('%',#{paramCondition.chsname},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TcGwProtocolParam">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_gw_protocol where 1 = 1
+            <if test="paramCondition.protocolname != null and paramCondition.protocolname != ''">
+                and protocolname like CONCAT('%',#{paramCondition.protocolname},'%')
+            </if>
+            <if test="paramCondition.chsname != null and paramCondition.chsname != ''">
+                and chsname like CONCAT('%',#{paramCondition.chsname},'%')
+            </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,47 @@
+@layout("/common/_container.html",{js:["/assets/sms/recharge/recharge_add.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">添加</span>
+</div>
+
+<div class="layui-fluid " style="">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form id="rechargeForm" lay-filter="rechargeForm" class="layui-form model-form" style="max-width: 700px;margin: 40px auto;">
+                <input name="rechargeid" type="hidden"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">spnumid<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="spnumid" name="spnumid" placeholder="请输入spnumid" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">企业ID<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="entid" name="entid" placeholder="请输入企业ID" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">条数<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="cnt" name="cnt" placeholder="请输入条数" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="remark" name="remark" placeholder="请输入备注" type="text" class="layui-input"  />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+                        <button class="layui-btn layui-btn-primary" type="button" id="backupPage">&emsp;返回&emsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@}

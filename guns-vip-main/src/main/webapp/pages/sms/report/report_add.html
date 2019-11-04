@@ -1,0 +1,95 @@
+@layout("/common/_container.html",{js:["/assets/sms/report/report_add.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">添加</span>
+</div>
+
+<div class="layui-fluid " style="">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form id="reportForm" lay-filter="reportForm" class="layui-form model-form" style="max-width: 700px;margin: 40px auto;">
+                <input name="reportId" type="hidden"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">接入码<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="entityName" name="entityName" placeholder="请输入接入码" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Msgid<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="msgId" name="msgId" placeholder="请输入Msgid" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">原Msgid和send表中msgid对应<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="srcmsgId" name="srcmsgId" placeholder="请输入原Msgid和send表中msgid对应" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">回执状态<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="stat" name="stat" placeholder="请输入回执状态" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">错误代码表<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="err" name="err" placeholder="请输入错误代码表" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">源号码<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="destid" name="destid" placeholder="请输入源号码" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">目的号码<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="srcterminalid" name="srcterminalid" placeholder="请输入目的号码" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">linkId<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="linkId" name="linkId" placeholder="请输入linkId" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">serverid<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="serverid" name="serverid" placeholder="请输入serverid" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态0,未发送，1己发送<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="status" name="status" placeholder="请输入状态0,未发送，1己发送" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">提交时间<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="submitDate" name="submitDate" placeholder="请输入提交时间" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">处理时间<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="dealDate" name="dealDate" placeholder="请输入处理时间" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+                        <button class="layui-btn layui-btn-primary" type="button" id="backupPage">&emsp;返回&emsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@}

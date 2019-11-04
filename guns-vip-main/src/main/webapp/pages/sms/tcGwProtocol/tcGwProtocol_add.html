@@ -1,0 +1,47 @@
+@layout("/common/_container.html",{js:["/assets/sms/tcGwProtocol/tcGwProtocol_add.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">添加</span>
+</div>
+
+<div class="layui-fluid " style="">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form id="tcGwProtocolForm" lay-filter="tcGwProtocolForm" class="layui-form model-form" style="max-width: 700px;margin: 40px auto;">
+                <input name="protocolid" type="hidden"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">协议名称<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="protocolname" name="protocolname" placeholder="请输入协议名称" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">中文名称<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="chsname" name="chsname" placeholder="请输入中文名称" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="remark" name="remark" placeholder="请输入备注" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">添加时间<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="adddate" name="adddate" placeholder="请输入添加时间" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+                        <button class="layui-btn layui-btn-primary" type="button" id="backupPage">&emsp;返回&emsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@}

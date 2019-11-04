@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.sms.mapper.MobileMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.sms.entity.Mobile">
+        <id column="mobileid" property="mobileid" />
+        <result column="prefix" property="prefix" />
+        <result column="mobile" property="mobile" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="corp" property="corp" />
+        <result column="areacode" property="areacode" />
+        <result column="postcode" property="postcode" />
+        <result column="admincode" property="admincode" />
+        <result column="adddate" property="adddate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        mobileid AS "mobileid", prefix AS "prefix", mobile AS "mobile", province AS "province", city AS "city", corp AS "corp", areacode AS "areacode", postcode AS "postcode", admincode AS "admincode", adddate AS "adddate"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.MobileResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.MobileParam">
+        select
+        <include refid="Base_Column_List"/>
+        from mobile where 1 = 1
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.MobileParam">
+        select
+        <include refid="Base_Column_List"/>
+        from mobile where 1 = 1
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.MobileResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.MobileParam">
+        select
+        <include refid="Base_Column_List"/>
+        from mobile where 1 = 1
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.MobileParam">
+        select
+        <include refid="Base_Column_List"/>
+        from mobile where 1 = 1
+    </select>
+
+</mapper>

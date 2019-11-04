@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.sms.mapper.DeliverMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.sms.entity.Deliver">
+        <id column="deliverId" property="deliverId" />
+        <result column="entityName" property="entityName" />
+        <result column="msgId" property="msgId" />
+        <result column="destid" property="destid" />
+        <result column="srcterminalid" property="srcterminalid" />
+        <result column="msgContent" property="msgContent" />
+        <result column="sequenceId" property="sequenceId" />
+        <result column="status" property="status" />
+        <result column="submitDate" property="submitDate" />
+        <result column="dealDate" property="dealDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        deliverId AS "deliverId", entityName AS "entityName", msgId AS "msgId", destid AS "destid", srcterminalid AS "srcterminalid", msgContent AS "msgContent", sequenceId AS "sequenceId", status AS "status", submitDate AS "submitDate", dealDate AS "dealDate"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.DeliverResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.DeliverParam">
+        select
+        <include refid="Base_Column_List"/>
+        from deliver where 1 = 1
+            <if test="paramCondition.entityName != null and paramCondition.entityName != ''">
+                and entityName like CONCAT('%',#{paramCondition.entityName},'%')
+            </if>
+            <if test="paramCondition.destid != null and paramCondition.destid != ''">
+                and destid like CONCAT('%',#{paramCondition.destid},'%')
+            </if>
+            <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
+                and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+            <if test="paramCondition.msgContent != null and paramCondition.msgContent != ''">
+                and msgContent like CONCAT('%',#{paramCondition.msgContent},'%')
+            </if>
+            <if test="paramCondition.status != null and paramCondition.status != ''">
+                and status like CONCAT('%',#{paramCondition.status},'%')
+            </if>
+            <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
+                and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.DeliverParam">
+        select
+        <include refid="Base_Column_List"/>
+        from deliver where 1 = 1
+            <if test="paramCondition.entityName != null and paramCondition.entityName != ''">
+                and entityName like CONCAT('%',#{paramCondition.entityName},'%')
+            </if>
+            <if test="paramCondition.destid != null and paramCondition.destid != ''">
+                and destid like CONCAT('%',#{paramCondition.destid},'%')
+            </if>
+            <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
+                and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+            <if test="paramCondition.msgContent != null and paramCondition.msgContent != ''">
+                and msgContent like CONCAT('%',#{paramCondition.msgContent},'%')
+            </if>
+            <if test="paramCondition.status != null and paramCondition.status != ''">
+                and status like CONCAT('%',#{paramCondition.status},'%')
+            </if>
+            <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
+                and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.DeliverResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.DeliverParam">
+        select
+        <include refid="Base_Column_List"/>
+        from deliver where 1 = 1
+            <if test="paramCondition.entityName != null and paramCondition.entityName != ''">
+                and entityName like CONCAT('%',#{paramCondition.entityName},'%')
+            </if>
+            <if test="paramCondition.destid != null and paramCondition.destid != ''">
+                and destid like CONCAT('%',#{paramCondition.destid},'%')
+            </if>
+            <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
+                and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+            <if test="paramCondition.msgContent != null and paramCondition.msgContent != ''">
+                and msgContent like CONCAT('%',#{paramCondition.msgContent},'%')
+            </if>
+            <if test="paramCondition.status != null and paramCondition.status != ''">
+                and status like CONCAT('%',#{paramCondition.status},'%')
+            </if>
+            <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
+                and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.DeliverParam">
+        select
+        <include refid="Base_Column_List"/>
+        from deliver where 1 = 1
+            <if test="paramCondition.entityName != null and paramCondition.entityName != ''">
+                and entityName like CONCAT('%',#{paramCondition.entityName},'%')
+            </if>
+            <if test="paramCondition.destid != null and paramCondition.destid != ''">
+                and destid like CONCAT('%',#{paramCondition.destid},'%')
+            </if>
+            <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
+                and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+            <if test="paramCondition.msgContent != null and paramCondition.msgContent != ''">
+                and msgContent like CONCAT('%',#{paramCondition.msgContent},'%')
+            </if>
+            <if test="paramCondition.status != null and paramCondition.status != ''">
+                and status like CONCAT('%',#{paramCondition.status},'%')
+            </if>
+            <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
+                and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
+            </if>
+    </select>
+
+</mapper>

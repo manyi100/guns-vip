@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.sms.mapper.ReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.sms.entity.Report">
+        <id column="reportId" property="reportId" />
+        <result column="entityName" property="entityName" />
+        <result column="msgId" property="msgId" />
+        <result column="srcmsgId" property="srcmsgId" />
+        <result column="stat" property="stat" />
+        <result column="err" property="err" />
+        <result column="destid" property="destid" />
+        <result column="srcterminalid" property="srcterminalid" />
+        <result column="linkId" property="linkId" />
+        <result column="serverid" property="serverid" />
+        <result column="status" property="status" />
+        <result column="submitDate" property="submitDate" />
+        <result column="dealDate" property="dealDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        reportId AS "reportId", entityName AS "entityName", msgId AS "msgId", srcmsgId AS "srcmsgId", stat AS "stat", err AS "err", destid AS "destid", srcterminalid AS "srcterminalid", linkId AS "linkId", serverid AS "serverid", status AS "status", submitDate AS "submitDate", dealDate AS "dealDate"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.ReportResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.ReportParam">
+        select
+        <include refid="Base_Column_List"/>
+        from report where 1 = 1
+            <if test="paramCondition.entityName != null and paramCondition.entityName != ''">
+                and entityName like CONCAT('%',#{paramCondition.entityName},'%')
+            </if>
+            <if test="paramCondition.stat != null and paramCondition.stat != ''">
+                and stat like CONCAT('%',#{paramCondition.stat},'%')
+            </if>
+            <if test="paramCondition.destid != null and paramCondition.destid != ''">
+                and destid like CONCAT('%',#{paramCondition.destid},'%')
+            </if>
+            <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
+                and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.ReportParam">
+        select
+        <include refid="Base_Column_List"/>
+        from report where 1 = 1
+            <if test="paramCondition.entityName != null and paramCondition.entityName != ''">
+                and entityName like CONCAT('%',#{paramCondition.entityName},'%')
+            </if>
+            <if test="paramCondition.stat != null and paramCondition.stat != ''">
+                and stat like CONCAT('%',#{paramCondition.stat},'%')
+            </if>
+            <if test="paramCondition.destid != null and paramCondition.destid != ''">
+                and destid like CONCAT('%',#{paramCondition.destid},'%')
+            </if>
+            <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
+                and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.ReportResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.ReportParam">
+        select
+        <include refid="Base_Column_List"/>
+        from report where 1 = 1
+            <if test="paramCondition.entityName != null and paramCondition.entityName != ''">
+                and entityName like CONCAT('%',#{paramCondition.entityName},'%')
+            </if>
+            <if test="paramCondition.stat != null and paramCondition.stat != ''">
+                and stat like CONCAT('%',#{paramCondition.stat},'%')
+            </if>
+            <if test="paramCondition.destid != null and paramCondition.destid != ''">
+                and destid like CONCAT('%',#{paramCondition.destid},'%')
+            </if>
+            <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
+                and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.ReportParam">
+        select
+        <include refid="Base_Column_List"/>
+        from report where 1 = 1
+            <if test="paramCondition.entityName != null and paramCondition.entityName != ''">
+                and entityName like CONCAT('%',#{paramCondition.entityName},'%')
+            </if>
+            <if test="paramCondition.stat != null and paramCondition.stat != ''">
+                and stat like CONCAT('%',#{paramCondition.stat},'%')
+            </if>
+            <if test="paramCondition.destid != null and paramCondition.destid != ''">
+                and destid like CONCAT('%',#{paramCondition.destid},'%')
+            </if>
+            <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
+                and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+    </select>
+
+</mapper>
