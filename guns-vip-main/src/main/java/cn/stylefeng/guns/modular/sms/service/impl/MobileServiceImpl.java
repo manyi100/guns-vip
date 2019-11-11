@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -61,6 +62,11 @@ public class MobileServiceImpl extends ServiceImpl<MobileMapper, Mobile> impleme
         Page pageContext = getPageContext();
         IPage page = this.baseMapper.customPageList(pageContext, param);
         return LayuiPageFactory.createPageInfo(page);
+    }
+
+    @Override
+    public List<Map<String, Object>> getMobileByPage(Page page, String mobile) {
+        return this.baseMapper.getMobileByPage(page,mobile);
     }
 
     private Serializable getKey(MobileParam param){

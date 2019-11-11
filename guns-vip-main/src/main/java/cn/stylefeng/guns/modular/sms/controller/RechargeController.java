@@ -10,10 +10,15 @@ import cn.stylefeng.guns.modular.sms.service.TGwSpConfigService;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
@@ -138,7 +143,9 @@ public class RechargeController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(RechargeParam rechargeParam) {
+    public LayuiPageInfo list(@RequestParam(required = false) String condition, RechargeParam rechargeParam) {
+        if(StringUtils.isNotEmpty(condition))
+            rechargeParam.setSpnumid(Long.parseLong(condition));
         ShiroUser user = ShiroKit.getUserNotNull();
         if(!user.getRoleList().contains(1L))
         {
@@ -147,6 +154,25 @@ public class RechargeController extends BaseController {
         return this.rechargeService.findPageBySpec(rechargeParam);
     }
 
+    /**
+     * 获取当前用户的条数余额
+     * @return
+     */
+    @RequestMapping("/currentBalance")
+    @ResponseBody
+    public ResponseData getCurrentBalance() {
+
+        ShiroUser currentUser = ShiroKit.getUser();
+        if (currentUser == null) {
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+        }
+        String nowcnt ="0";
+        if(!ShiroKit.isAdmin()) {
+            String account = currentUser.getAccount();
+            nowcnt=redisTemplate.opsForHash().get(account, "balance").toString();
+        }
+        return new SuccessResponseData(nowcnt);
+    }
 }
 
 

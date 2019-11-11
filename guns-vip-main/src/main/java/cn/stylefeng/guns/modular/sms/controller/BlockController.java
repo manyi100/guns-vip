@@ -14,6 +14,7 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -130,7 +131,8 @@ public class BlockController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     public LayuiPageInfo list(@RequestParam(required = false) String condition, BlockParam blockParam) {
-        blockParam.setBlockmobile(condition);
+        if(StringUtils.isNotEmpty(condition))
+            blockParam.setBlockmobile(condition);
         return this.blockService.findPageBySpec(blockParam);
     }
 

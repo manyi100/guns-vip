@@ -53,4 +53,6 @@ public interface MobileMapper extends BaseMapper<Mobile> {
      */
     Page<Map<String, Object>> customPageMapList(@Param("page") Page page, @Param("paramCondition") MobileParam paramCondition);
 
+    List<Map<String, Object>> getMobileByPage(@Param("page") Page page, @Param("mobile") String mobile);
+
 }

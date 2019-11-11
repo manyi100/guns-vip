@@ -1,8 +1,9 @@
-layui.use(['table', 'admin', 'ax'], function () {
+layui.use(['table', 'admin', 'ax','laydate'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
+    var laydate = layui.laydate;
 
     /**
      * 发送表管理
@@ -25,13 +26,22 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'msgId', sort: true, title: 'Msgid'},
             {field: 'result', sort: true, title: '网关返回状态'},
             {field: 'sequenceid', sort: true, title: '网关返回序列号'},
-            {field: 'linkId', sort: true, title: 'linkId'},
+            {field: 'linkId', hide:true,sort: true, title: 'linkId'},
             {field: 'msgsrc', sort: true, title: '接入号'},
             {field: 'spid', sort: true, title: '运营商ID'},
             {field: 'province', sort: true, title: '省份'},
             {field: 'city', sort: true, title: '城市'},
             {field: 'areacode', sort: true, title: '区号'},
-            {field: 'status', sort: true, title: '状态 0 未发送，己发送'},
+            // {field: 'status', sort: true, title: '状态 0 未发送，己发送'},
+            {
+                field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
+                    if (d.status === 0) {
+                        return "未发送";
+                    } else {
+                        return "己发送";
+                    }
+                }
+            },
             {field: 'entityid', sort: true, title: '发送网关'},
             {field: 'realmsgid', sort: true, title: '真实网关返回id'},
             {field: 'realresult', sort: true, title: '真实网关返回状态'},
@@ -47,6 +57,7 @@ layui.use(['table', 'admin', 'ax'], function () {
     Send.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
+        queryData['senddate'] = $("#senddate").val();
         table.reload(Send.tableId, {
             where: queryData, page: {curr: 1}
         });
@@ -134,5 +145,13 @@ layui.use(['table', 'admin', 'ax'], function () {
         } else if (layEvent === 'delete') {
             Send.onDeleteItem(data);
         }
+    });
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#senddate' //指定元素
+        ,format: 'yyyy-MM-dd' //可任意组合
+        // ,value: new Date().toString()
+        // ,isInitValue: true //是否允许填充初始值，默认为 true
     });
 });

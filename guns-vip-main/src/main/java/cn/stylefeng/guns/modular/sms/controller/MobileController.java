@@ -1,15 +1,24 @@
 package cn.stylefeng.guns.modular.sms.controller;
 
+import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.Mobile;
 import cn.stylefeng.guns.modular.sms.model.params.MobileParam;
 import cn.stylefeng.guns.modular.sms.service.MobileService;
+import cn.stylefeng.guns.modular.sms.wapper.MobileWrapper;
+import cn.stylefeng.guns.sys.modular.system.warpper.LogWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -120,8 +129,20 @@ public class MobileController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(MobileParam mobileParam) {
+    public LayuiPageInfo list(@RequestParam(required = false) String condition, MobileParam mobileParam) {
+
+//        //获取分页参数
+//        Page page = LayuiPageFactory.defaultPage();
+//
+//        //根据条件查询日志
+//        List<Map<String, Object>> result = mobileService.getMobileByPage(page,condition);
+//        page.setRecords(new MobileWrapper(result).wrap());
+//
+//        return LayuiPageFactory.createPageInfo(page);
+        mobileParam.setMobile(condition);
+
         return this.mobileService.findPageBySpec(mobileParam);
+
     }
 
 }

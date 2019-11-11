@@ -37,7 +37,16 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'remark', sort: true, title: '备注'},
             {field: 'clientIp', sort: true, title: '客户端IP'},
             {field: 'version', sort: true, title: '版本号'},
-            {field: 'status', sort: true, title: '状态'},
+            // {field: 'status', sort: true, title: '状态'},
+            {
+                field: 'status', sort: true, title: '状态', templet: function (d) {
+                    if (d.status === 0) {
+                        return "启用";
+                    } else {
+                        return "禁用";
+                    }
+                }
+            },
             {field: 'submitdate', sort: true, title: '提交时间'},
             {field: 'dealdate', sort: true, title: '修改时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}

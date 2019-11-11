@@ -4,9 +4,11 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.Mobile;
 import cn.stylefeng.guns.modular.sms.model.params.MobileParam;
 import cn.stylefeng.guns.modular.sms.model.result.MobileResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -66,4 +68,5 @@ public interface MobileService extends IService<Mobile> {
      */
      LayuiPageInfo findPageBySpec(MobileParam param);
 
+     List<Map<String, Object>> getMobileByPage(Page page, String mobile);
 }

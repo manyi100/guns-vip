@@ -51,6 +51,9 @@
             <if test="paramCondition.entityid != null and paramCondition.entityid != ''">
                 and entityid like CONCAT('%',#{paramCondition.entityid},'%')
             </if>
+        <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
+            and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
+        </if>
     </select>
 
     <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.SendParam">
@@ -72,6 +75,9 @@
             <if test="paramCondition.entityid != null and paramCondition.entityid != ''">
                 and entityid like CONCAT('%',#{paramCondition.entityid},'%')
             </if>
+        <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
+            and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
+        </if>
     </select>
 
     <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.SendResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.SendParam">
@@ -93,6 +99,9 @@
             <if test="paramCondition.entityid != null and paramCondition.entityid != ''">
                 and entityid like CONCAT('%',#{paramCondition.entityid},'%')
             </if>
+        <if test="paramCondition.senddate != null and paramCondition.senddate != ''">
+            and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
+        </if>
     </select>
 
     <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.SendParam">
@@ -114,6 +123,9 @@
             <if test="paramCondition.entityid != null and paramCondition.entityid != ''">
                 and entityid like CONCAT('%',#{paramCondition.entityid},'%')
             </if>
+        <if test="paramCondition.senddate != null and paramCondition.senddate != ''">
+            and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
+        </if>
     </select>
 
 </mapper>

@@ -6,9 +6,11 @@ import cn.stylefeng.guns.modular.sms.model.params.SignnameParam;
 import cn.stylefeng.guns.modular.sms.service.SignnameService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -120,7 +122,9 @@ public class SignnameController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(SignnameParam signnameParam) {
+    public LayuiPageInfo list(@RequestParam(required = false) String condition, SignnameParam signnameParam) {
+        if(StringUtils.isNotEmpty(condition))
+            signnameParam.setSignname(condition);
         return this.signnameService.findPageBySpec(signnameParam);
     }
 

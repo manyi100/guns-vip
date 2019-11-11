@@ -22,7 +22,16 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'entid', sort: true, title: '企业ID'},
             {field: 'signtype', sort: true, title: '签名类型'},
             {field: 'remark', sort: true, title: '备注'},
-            {field: 'status', sort: true, title: '状态0,可用，1不可用'},
+            // {field: 'status', sort: true, title: '状态0,可用，1不可用'},
+            {
+                field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
+                    if (d.status === 0) {
+                        return "启用";
+                    } else {
+                        return "禁用";
+                    }
+                }
+            },
             {field: 'adddate', sort: true, title: '添加时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];

@@ -6,9 +6,12 @@ import cn.stylefeng.guns.modular.sms.model.params.TcGwSpParam;
 import cn.stylefeng.guns.modular.sms.service.TcGwSpService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import org.apache.commons.lang3.StringUtils;
+import org.beetl.ext.fn.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -120,7 +123,9 @@ public class TcGwSpController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(TcGwSpParam tcGwSpParam) {
+    public LayuiPageInfo list(@RequestParam(required = false) String condition, TcGwSpParam tcGwSpParam) {
+        if(StringUtils.isNoneEmpty(condition))
+            tcGwSpParam.setSpname(condition);
         return this.tcGwSpService.findPageBySpec(tcGwSpParam);
     }
 

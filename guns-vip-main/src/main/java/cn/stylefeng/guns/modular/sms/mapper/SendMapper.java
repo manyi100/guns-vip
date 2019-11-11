@@ -4,7 +4,6 @@ import cn.stylefeng.guns.modular.sms.entity.Send;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.model.result.SendResult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 

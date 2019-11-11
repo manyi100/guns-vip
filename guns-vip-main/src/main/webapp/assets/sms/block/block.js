@@ -22,7 +22,7 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'entid', sort: true, title: '企业ID'},
             {field: 'blocktype', sort: true, title: '黑名单类型'},
             {field: 'remark', sort: true, title: '备注'},
-            {field: 'status', sort: true,templet: '#statusTpl', title: '状态0,可用，1不可用'},
+            {field: 'status', sort: true,templet: '#statusTpl', title: '状态'},
             {field: 'adddate', sort: true, title: '添加时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];

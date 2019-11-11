@@ -1,14 +1,17 @@
 package cn.stylefeng.guns.modular.sms.controller;
 
+import cn.hutool.core.date.DateUtil;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.Report;
 import cn.stylefeng.guns.modular.sms.model.params.ReportParam;
 import cn.stylefeng.guns.modular.sms.service.ReportService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -120,7 +123,11 @@ public class ReportController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(ReportParam reportParam) {
+    public LayuiPageInfo list(@RequestParam(required = false) String condition, @RequestParam(required = false) String senddate,ReportParam reportParam) {
+        if(StringUtils.isNotEmpty(condition))
+            reportParam.setStat(condition);
+        if(StringUtils.isNotEmpty(senddate))
+            reportParam.setSubmitDate(DateUtil.parseDate(senddate));
         return this.reportService.findPageBySpec(reportParam);
     }
 

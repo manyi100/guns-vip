@@ -17,7 +17,7 @@ layui.use(['table', 'admin', 'ax'], function () {
     TcGwSp.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'spid', hide: true, title: '协议ID，1，中国电信，2，中国网通，3，中国移动，4，中国联通'},
+            {field: 'spid', title: '协议ID'},
             {field: 'spname', sort: true, title: '名称'},
             {field: 'remark', sort: true, title: '备注'},
             {field: 'adddate', sort: true, title: '添加时间'},

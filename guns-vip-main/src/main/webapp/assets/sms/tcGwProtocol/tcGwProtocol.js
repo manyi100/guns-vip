@@ -17,7 +17,7 @@ layui.use(['table', 'admin', 'ax'], function () {
     TcGwProtocol.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'protocolid', hide: true, title: '协议ID，1，SMPP，2，SMGP，3，CNGP，4，CMPP，5，SGIP'},
+            {field: 'protocolid',  title: '协议ID'},
             {field: 'protocolname', sort: true, title: '协议名称'},
             {field: 'chsname', sort: true, title: '中文名称'},
             {field: 'remark', sort: true, title: '备注'},

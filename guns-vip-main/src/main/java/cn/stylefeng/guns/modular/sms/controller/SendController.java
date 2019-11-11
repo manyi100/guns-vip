@@ -1,15 +1,21 @@
 package cn.stylefeng.guns.modular.sms.controller;
 
+import cn.hutool.core.date.DateUtil;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.Send;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.service.SendService;
+import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
 
 
 /**
@@ -120,7 +126,16 @@ public class SendController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(SendParam sendParam) {
+    public LayuiPageInfo list(@RequestParam(required = false) String condition,
+                              @RequestParam(required = false) String senddate ,
+                              SendParam sendParam) {
+        if(StringUtils.isNotEmpty(condition))
+            sendParam.setDestterminalId(condition);
+        if(StringUtils.isNotEmpty(senddate))
+            sendParam.setSubmitDate(DateUtil.parse(senddate,"yyyy-MM-dd"));
+        if(!ShiroKit.isAdmin())
+            sendParam.setEntityName(ShiroKit.getUser().getAccount());
+
         return this.sendService.findPageBySpec(sendParam);
     }
 

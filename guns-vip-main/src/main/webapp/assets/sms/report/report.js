@@ -1,8 +1,9 @@
-layui.use(['table', 'admin', 'ax'], function () {
+layui.use(['table', 'admin', 'ax','laydate'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
+    var laydate = layui.laydate;
 
     /**
      * 回执表管理
@@ -40,6 +41,8 @@ layui.use(['table', 'admin', 'ax'], function () {
     Report.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
+        queryData['senddate'] = $("#senddate").val();
+
         table.reload(Report.tableId, {
             where: queryData, page: {curr: 1}
         });
@@ -127,5 +130,13 @@ layui.use(['table', 'admin', 'ax'], function () {
         } else if (layEvent === 'delete') {
             Report.onDeleteItem(data);
         }
+    });
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#senddate' //指定元素
+        ,format: 'yyyy-MM-dd' //可任意组合
+        // ,value: new Date().toString()
+        ,isInitValue: true //是否允许填充初始值，默认为 true
     });
 });
