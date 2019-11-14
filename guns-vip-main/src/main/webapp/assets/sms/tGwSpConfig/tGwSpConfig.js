@@ -17,7 +17,7 @@ layui.use(['table', 'admin', 'ax'], function () {
     TGwSpConfig.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'spnumId', hide: true, title: '主键ID'},
+            {field: 'spnumId', hide: false, title: 'spnumId'},
             {field: 'protocolId', sort: true, title: '协议ID'},
             {field: 'spId', sort: true, title: '运营商ID'},
             {field: 'entId', sort: true, title: '企业ID'},

@@ -4,9 +4,14 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.Send;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.model.result.SendResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -65,5 +70,35 @@ public interface SendService extends IService<Send> {
      * @Date 2019-10-31
      */
      LayuiPageInfo findPageBySpec(SendParam param);
+//    int getMonthCount(@Param("userid") String userid,@Param("submitDate") String adddate);
+//    int getDayCount(@Param("userid") String userid,@Param("submitDate") String adddate);
 
+    /**
+     * 按日统计
+     * @param userid
+     * @return
+     */
+
+//    int getDayCount(@Param("userid") String userid, @Param("submitDate") String adddate);
+//    /**
+//     * 按月统计
+//     * @param userid
+//     * @param adddate
+//     * @return
+//     */
+//
+//    int getMonthCount(@Param("userid") String userid,@Param("submitDate") String adddate);
+
+    @Select("Select count(*) as count " +
+            "from send where entityName=#{userid} and date_format(submitDate,'%Y-%m-%d')=#{submitDate}" +
+            "group by entityName,date_format(submitDate,'%Y-%m-%d')")
+    int getDayCount(String userid);
+
+
+    @Select("Select count(*) as count " +
+            "from send where entityName=#{userid} and date_format(submitDate,'%Y-%m')=#{submitDate}" +
+            "group by entityName,date_format(submitDate,'%Y-%m')")
+    int getMonthCount(String userid);
+
+    List<Map<String, Object>> getThisMonth(String userid);
 }

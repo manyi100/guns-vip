@@ -127,5 +127,4 @@
             and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
         </if>
     </select>
-
 </mapper>

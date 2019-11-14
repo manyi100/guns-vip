@@ -6,6 +6,7 @@ import cn.stylefeng.guns.modular.sms.model.result.SendResult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -51,5 +52,6 @@ public interface SendMapper extends BaseMapper<Send> {
      * @Date 2019-10-31
      */
     Page<Map<String, Object>> customPageMapList(@Param("page") Page page, @Param("paramCondition") SendParam paramCondition);
+
 
 }

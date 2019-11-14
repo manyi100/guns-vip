@@ -2,12 +2,17 @@ package cn.stylefeng.guns.modular.sms.controller;
 
 import cn.hutool.core.date.DateUtil;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
+import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.sms.entity.Send;
+import cn.stylefeng.guns.modular.sms.mapper.SendMapper;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.service.SendService;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -139,6 +146,72 @@ public class SendController extends BaseController {
         return this.sendService.findPageBySpec(sendParam);
     }
 
+    /**
+     * 获取日发送量
+     */
+
+    @RequestMapping("/getDayCount")
+    @ResponseBody
+    public ResponseData getDayCount() {
+
+        ShiroUser currentUser = ShiroKit.getUser();
+        if (currentUser == null) {
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+        }
+        int nowcnt =0;
+        if(!ShiroKit.isAdmin()) {
+            String account = currentUser.getAccount();
+            nowcnt=sendService.getDayCount(account);
+        }else
+        {
+            nowcnt=sendService.getDayCount("");
+        }
+        return new SuccessResponseData(nowcnt);
+    }
+    /**
+     * 获取月发送量
+     */
+
+    @RequestMapping("/getMonthCount")
+    @ResponseBody
+    public ResponseData getMonthCount() {
+
+        ShiroUser currentUser = ShiroKit.getUser();
+        if (currentUser == null) {
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+        }
+        int nowcnt =0;
+        if(!ShiroKit.isAdmin()) {
+            String account = currentUser.getAccount();
+            nowcnt=sendService.getMonthCount(account);
+        }else
+        {
+            nowcnt=sendService.getMonthCount("");
+        }
+        return new SuccessResponseData(nowcnt);
+    }
+    /**
+     * 获取月发送量
+     */
+
+    @RequestMapping("/getThisMonthList")
+    @ResponseBody
+    public ResponseData getThisMonthList() {
+
+        ShiroUser currentUser = ShiroKit.getUser();
+        if (currentUser == null) {
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+        }
+        List<Map<String, Object>> nowcnt;
+        if(!ShiroKit.isAdmin()) {
+            String account = currentUser.getAccount();
+            nowcnt=sendService.getThisMonth(account);
+        }else
+        {
+            nowcnt=sendService.getThisMonth("");
+        }
+        return new SuccessResponseData(nowcnt);
+    }
 }
 
 
