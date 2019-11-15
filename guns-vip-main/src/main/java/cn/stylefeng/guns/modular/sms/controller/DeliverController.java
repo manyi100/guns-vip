@@ -4,6 +4,7 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.Deliver;
 import cn.stylefeng.guns.modular.sms.model.params.DeliverParam;
 import cn.stylefeng.guns.modular.sms.service.DeliverService;
+import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +122,8 @@ public class DeliverController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     public LayuiPageInfo list(DeliverParam deliverParam) {
+        if(!ShiroKit.isAdmin())
+            deliverParam.setEntityName(ShiroKit.getUser().getAccount());
         return this.deliverService.findPageBySpec(deliverParam);
     }
 

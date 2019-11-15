@@ -5,6 +5,7 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.Report;
 import cn.stylefeng.guns.modular.sms.model.params.ReportParam;
 import cn.stylefeng.guns.modular.sms.service.ReportService;
+import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import org.apache.commons.lang3.StringUtils;
@@ -128,6 +129,8 @@ public class ReportController extends BaseController {
             reportParam.setStat(condition);
         if(StringUtils.isNotEmpty(senddate))
             reportParam.setSubmitDate(DateUtil.parseDate(senddate));
+        if(!ShiroKit.isAdmin())
+            reportParam.setEntityName(ShiroKit.getUser().getAccount());
         return this.reportService.findPageBySpec(reportParam);
     }
 

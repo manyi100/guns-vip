@@ -51,12 +51,6 @@ layui.use(['table', 'admin', 'ax'], function () {
         });
     };
 
-    /**
-     * 弹出添加对话框
-     */
-    Deliver.openAddDlg = function () {
-        window.location.href = Feng.ctxPath + '/deliver/add';
-    };
 
     /**
      * 导出excel按钮
@@ -70,33 +64,8 @@ layui.use(['table', 'admin', 'ax'], function () {
         }
     };
 
-    /**
-     * 点击编辑
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    Deliver.openEditDlg = function (data) {
-        window.location.href = Feng.ctxPath + '/deliver/edit?deliverId=' + data.deliverId;
-    };
 
-    /**
-     * 点击删除
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    Deliver.onDeleteItem = function (data) {
-        var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/deliver/delete", function (data) {
-                Feng.success("删除成功!");
-                table.reload(Deliver.tableId);
-            }, function (data) {
-                Feng.error("删除失败!" + data.responseJSON.message + "!");
-            });
-            ajax.set("deliverId", data.deliverId);
-            ajax.start();
-        };
-        Feng.confirm("是否删除?", operation);
-    };
+
 
     // 渲染表格
     var tableResult = table.render({
@@ -113,25 +82,10 @@ layui.use(['table', 'admin', 'ax'], function () {
         Deliver.search();
     });
 
-    // 添加按钮点击事件
-    $('#btnAdd').click(function () {
-        Deliver.openAddDlg();
-    });
 
     // 导出excel
     $('#btnExp').click(function () {
         Deliver.exportExcel();
     });
 
-    // 工具条点击事件
-    table.on('tool(' + Deliver.tableId + ')', function (obj) {
-        var data = obj.data;
-        var layEvent = obj.event;
-
-        if (layEvent === 'edit') {
-            Deliver.openEditDlg(data);
-        } else if (layEvent === 'delete') {
-            Deliver.onDeleteItem(data);
-        }
-    });
 });

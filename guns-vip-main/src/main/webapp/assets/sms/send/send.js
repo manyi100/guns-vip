@@ -76,12 +76,6 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
         });
     };
 
-    /**
-     * 弹出添加对话框
-     */
-    Send.openAddDlg = function () {
-        window.location.href = Feng.ctxPath + '/send/add';
-    };
 
     /**
      * 导出excel按钮
@@ -95,33 +89,7 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
         }
     };
 
-    /**
-     * 点击编辑
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    Send.openEditDlg = function (data) {
-        window.location.href = Feng.ctxPath + '/send/edit?taskId=' + data.taskId;
-    };
 
-    /**
-     * 点击删除
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    Send.onDeleteItem = function (data) {
-        var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/send/delete", function (data) {
-                Feng.success("删除成功!");
-                table.reload(Send.tableId);
-            }, function (data) {
-                Feng.error("删除失败!" + data.responseJSON.message + "!");
-            });
-            ajax.set("taskId", data.taskId);
-            ajax.start();
-        };
-        Feng.confirm("是否删除?", operation);
-    };
 
     // 渲染表格
     var tableResult = table.render({
@@ -138,27 +106,13 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
         Send.search();
     });
 
-    // 添加按钮点击事件
-    $('#btnAdd').click(function () {
-        Send.openAddDlg();
-    });
 
     // 导出excel
     $('#btnExp').click(function () {
         Send.exportExcel();
     });
 
-    // 工具条点击事件
-    table.on('tool(' + Send.tableId + ')', function (obj) {
-        var data = obj.data;
-        var layEvent = obj.event;
 
-        if (layEvent === 'edit') {
-            Send.openEditDlg(data);
-        } else if (layEvent === 'delete') {
-            Send.onDeleteItem(data);
-        }
-    });
 
     //执行一个laydate实例
     laydate.render({

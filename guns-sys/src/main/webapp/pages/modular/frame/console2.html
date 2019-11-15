@@ -64,10 +64,10 @@
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
-                    子帐号数<span class="layui-badge layui-bg-black pull-right">日</span>
+                    帐号数<span class="layui-badge layui-bg-black pull-right">日</span>
                 </div>
                 <div class="layui-card-body">
-                    <p class="lay-big-font">0</p>
+                    <p id="accountNum" class="lay-big-font">0</p>
                 </div>
             </div>
         </div>
@@ -153,6 +153,10 @@
         var ajax = new $ax(Feng.ctxPath + "/send/getMonthCount");
         var result = ajax.start();
         $('#monthsendcnt').text(result.data);
+        //获取子帐号数量
+        var ajax = new $ax(Feng.ctxPath + "/send/getAccountNum");
+        var result = ajax.start();
+        $('#accountNum').text(result.data);
 
 
         //获取最近30天发送情况
