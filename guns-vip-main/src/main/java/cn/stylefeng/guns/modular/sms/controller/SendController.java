@@ -8,11 +8,14 @@ import cn.stylefeng.guns.modular.sms.mapper.SendMapper;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.service.SendService;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import cn.stylefeng.guns.sys.modular.system.entity.User;
+import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +42,8 @@ public class SendController extends BaseController {
 
     @Autowired
     private SendService sendService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 跳转到主页面
@@ -191,7 +196,7 @@ public class SendController extends BaseController {
         return new SuccessResponseData(nowcnt);
     }
     /**
-     * 获取月发送量
+     * 获取月发送量(短信发送走势图图标)
      */
 
     @RequestMapping("/getThisMonthList")
@@ -209,6 +214,31 @@ public class SendController extends BaseController {
         }else
         {
             nowcnt=sendService.getThisMonth("");
+        }
+        return new SuccessResponseData(nowcnt);
+    }
+
+    /**
+     * 获取所有子帐号数
+     */
+
+    @RequestMapping("/getAccountNum")
+    @ResponseBody
+    public ResponseData getAccountNum() {
+
+        ShiroUser currentUser = ShiroKit.getUser();
+        if (currentUser == null) {
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+        }
+        int nowcnt;
+        if(!ShiroKit.isAdmin()) {
+            String account = currentUser.getAccount();
+            QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+            queryWrapper.eq("account",account);
+            nowcnt=userService.count(queryWrapper);
+        }else
+        {
+            nowcnt=userService.count();
         }
         return new SuccessResponseData(nowcnt);
     }

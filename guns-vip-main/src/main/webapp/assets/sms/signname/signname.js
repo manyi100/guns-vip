@@ -20,7 +20,24 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'signid', hide: true, title: '主键ID'},
             {field: 'signname', sort: true, title: '签名'},
             {field: 'entid', sort: true, title: '企业ID'},
-            {field: 'signtype', sort: true, title: '签名类型'},
+            // {field: 'signtype', sort: true, title: '签名类型'},
+            {
+                field: 'signtype', align: "center", sort: true, title: '签名类型', templet: function (d) {
+                    if (d.signtype === 0) {
+                        return "行业短信";
+                    } else if (d.signtype === 1){
+                        return "游戏";
+                    }else if (d.signtype === 2){
+                        return "信用卡";
+                    }else if (d.signtype === 3){
+                        return "网贷";
+                    }else if (d.signtype === 4){
+                        return "通知类";
+                    }else{
+                        return "其它";
+                    }
+                }
+            },
             {field: 'remark', sort: true, title: '备注'},
             // {field: 'status', sort: true, title: '状态0,可用，1不可用'},
             {

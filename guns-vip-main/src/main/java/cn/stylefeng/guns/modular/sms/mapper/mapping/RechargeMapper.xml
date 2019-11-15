@@ -32,6 +32,7 @@
             <if test="paramCondition.userid != null and paramCondition.userid != ''">
                 and userid like CONCAT('%',#{paramCondition.userid},'%')
             </if>
+        order by adddate desc
     </select>
 
     <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.RechargeParam">
@@ -47,6 +48,7 @@
             <if test="paramCondition.userid != null and paramCondition.userid != ''">
                 and userid like CONCAT('%',#{paramCondition.userid},'%')
             </if>
+        order by adddate desc
     </select>
 
     <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.RechargeResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.RechargeParam">
@@ -62,6 +64,7 @@
             <if test="paramCondition.userid != null and paramCondition.userid != ''">
                 and userid like CONCAT('%',#{paramCondition.userid},'%')
             </if>
+        order by adddate desc
     </select>
 
     <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.RechargeParam">
@@ -77,6 +80,7 @@
             <if test="paramCondition.userid != null and paramCondition.userid != ''">
                 and userid like CONCAT('%',#{paramCondition.userid},'%')
             </if>
+        order by adddate desc
     </select>
 
 </mapper>

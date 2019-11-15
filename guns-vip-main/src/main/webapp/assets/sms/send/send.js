@@ -24,11 +24,24 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
             {field: 'destterminalId', sort: true, title: '目的号码'},
             {field: 'entityName', sort: true, title: '接入码'},
             {field: 'msgId', sort: true, title: 'Msgid'},
-            {field: 'result', sort: true, title: '网关返回状态'},
-            {field: 'sequenceid', sort: true, title: '网关返回序列号'},
+            {field: 'result', sort: true, title: '网关状态'},
+            {field: 'sequenceid', sort: true, title: '序列号'},
             {field: 'linkId', hide:true,sort: true, title: 'linkId'},
             {field: 'msgsrc', sort: true, title: '接入号'},
-            {field: 'spid', sort: true, title: '运营商ID'},
+            // {field: 'spid', sort: true, title: '运营商ID'},
+            {
+                field: 'spid', align: "center", sort: true, title: '运营商', templet: function (d) {
+                    if (d.spid === 1) {
+                        return "中国电信";
+                    } else if (d.spid === 2){
+                        return "中国网通";
+                    }else if (d.spid === 3){
+                        return "中国移动";
+                    }else if (d.spid === 4){
+                        return "中国联通";
+                    }
+                }
+            },
             {field: 'province', sort: true, title: '省份'},
             {field: 'city', sort: true, title: '城市'},
             {field: 'areacode', sort: true, title: '区号'},

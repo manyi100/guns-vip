@@ -2,11 +2,14 @@ package cn.stylefeng.guns.modular.sms.controller;
 
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
+import cn.stylefeng.guns.base.shiro.annotion.Permission;
 import cn.stylefeng.guns.modular.sms.entity.Recharge;
 import cn.stylefeng.guns.modular.sms.mapper.TGwSpConfigMapper;
 import cn.stylefeng.guns.modular.sms.model.params.RechargeParam;
 import cn.stylefeng.guns.modular.sms.service.RechargeService;
 import cn.stylefeng.guns.modular.sms.service.TGwSpConfigService;
+import cn.stylefeng.guns.sys.core.constant.Const;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
@@ -82,9 +85,16 @@ public class RechargeController extends BaseController {
      * @Date 2019-10-31
      */
     @RequestMapping("/addItem")
+    @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData addItem(RechargeParam rechargeParam) {
+
         ShiroUser user = ShiroKit.getUserNotNull();
+        if(!ShiroKit.isAdmin())
+        {
+            throw new ServiceException(BizExceptionEnum.NO_PERMITION);
+
+        }
         rechargeParam.setEntid(user.getDeptId());
         rechargeParam.setAdddate(new Date());
         rechargeParam.setUserid(user.getId());
@@ -103,6 +113,7 @@ public class RechargeController extends BaseController {
      * @Date 2019-10-31
      */
     @RequestMapping("/editItem")
+    @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData editItem(RechargeParam rechargeParam) {
         this.rechargeService.update(rechargeParam);
@@ -116,6 +127,7 @@ public class RechargeController extends BaseController {
      * @Date 2019-10-31
      */
     @RequestMapping("/delete")
+    @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData delete(RechargeParam rechargeParam) {
         this.rechargeService.delete(rechargeParam);

@@ -24,7 +24,16 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'srcterminalid', sort: true, title: '目的号码'},
             {field: 'msgContent', sort: true, title: '上行内容'},
             {field: 'sequenceId', sort: true, title: 'sequenceId'},
-            {field: 'status', sort: true, title: '状态0,未发送，1己发送'},
+            // {field: 'status', sort: true, title: '状态0,未发送，1己发送'},
+            {
+                field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
+                    if (d.status === 0) {
+                        return "未发送";
+                    } else {
+                        return "己发送";
+                    }
+                }
+            },
             {field: 'submitDate', sort: true, title: '提交时间'},
             {field: 'dealDate', sort: true, title: '处理时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}

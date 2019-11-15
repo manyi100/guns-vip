@@ -44,6 +44,7 @@
             <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
                 and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
             </if>
+        order by submitDate desc
     </select>
 
     <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.DeliverParam">
@@ -68,6 +69,7 @@
             <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
                 and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
             </if>
+        order by submitDate desc
     </select>
 
     <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.DeliverResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.DeliverParam">
@@ -92,6 +94,7 @@
             <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
                 and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
             </if>
+        order by submitDate desc
     </select>
 
     <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.DeliverParam">
@@ -116,6 +119,7 @@
             <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
                 and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
             </if>
+        order by submitDate desc
     </select>
 
 </mapper>

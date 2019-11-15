@@ -4,6 +4,7 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.Signname;
 import cn.stylefeng.guns.modular.sms.model.params.SignnameParam;
 import cn.stylefeng.guns.modular.sms.service.SignnameService;
+import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import org.apache.commons.lang3.StringUtils;
@@ -125,6 +126,17 @@ public class SignnameController extends BaseController {
     public LayuiPageInfo list(@RequestParam(required = false) String condition, SignnameParam signnameParam) {
         if(StringUtils.isNotEmpty(condition))
             signnameParam.setSignname(condition);
+        return this.signnameService.findPageBySpec(signnameParam);
+    }
+    /**
+     * 查询列表
+     *
+     * @author yqy
+     * @Date 2019-10-31
+     */
+    @ResponseBody
+    @RequestMapping("/getTypelist")
+    public LayuiPageInfo getTypelist(SignnameParam signnameParam) {
         return this.signnameService.findPageBySpec(signnameParam);
     }
 

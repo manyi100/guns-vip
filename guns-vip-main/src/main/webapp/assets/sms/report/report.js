@@ -21,14 +21,23 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
             {field: 'reportId', hide: true, title: '主键ID'},
             {field: 'entityName', sort: true, title: '接入码'},
             {field: 'msgId', sort: true, title: 'Msgid'},
-            {field: 'srcmsgId', sort: true, title: '原Msgid和send表中msgid对应'},
+            {field: 'srcmsgId', sort: true, title: '原Msgid'},
             {field: 'stat', sort: true, title: '回执状态'},
-            {field: 'err', sort: true, title: '错误代码表'},
+            {field: 'err', sort: true, title: '错误代码'},
             {field: 'destid', sort: true, title: '源号码'},
             {field: 'srcterminalid', sort: true, title: '目的号码'},
             {field: 'linkId',  hide: true,sort: true, title: 'linkId'},
             {field: 'serverid', hide: true, sort: true, title: 'serverid'},
-            {field: 'status', sort: true, title: '状态0,未发送，1己发送'},
+            // {field: 'status', sort: true, title: '状态0,未发送，1己发送'},
+            {
+                field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
+                    if (d.status === 0) {
+                        return "未发送";
+                    } else {
+                        return "己发送";
+                    }
+                }
+            },
             {field: 'submitDate', sort: true, title: '提交时间'},
             {field: 'dealDate', sort: true, title: '处理时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
