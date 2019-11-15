@@ -48,6 +48,7 @@
             <if test="paramCondition.spnum != null and paramCondition.spnum != ''">
                 and spnum like CONCAT('%',#{paramCondition.spnum},'%')
             </if>
+        order by submitDate desc
     </select>
 
     <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
@@ -66,6 +67,8 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
+        order by submitDate desc
+
     </select>
 
     <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.TGwSpConfigResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
@@ -84,6 +87,8 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
+        order by submitDate desc
+
     </select>
 
     <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
@@ -102,6 +107,8 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
+        order by submitDate desc
+
     </select>
 
 </mapper>

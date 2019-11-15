@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.sms.controller;
 
+import cn.stylefeng.guns.base.log.BussinessLog;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.base.shiro.annotion.Permission;
@@ -84,6 +85,7 @@ public class RechargeController extends BaseController {
      * @author yqy
      * @Date 2019-10-31
      */
+    @BussinessLog(value = "短信充值")
     @RequestMapping("/addItem")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody

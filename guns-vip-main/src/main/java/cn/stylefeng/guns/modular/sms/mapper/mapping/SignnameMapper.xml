@@ -26,6 +26,7 @@
             <if test="paramCondition.signname != null and paramCondition.signname != ''">
                 and signname like CONCAT('%',#{paramCondition.signname},'%')
             </if>
+        order by adddate desc
     </select>
 
     <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.SignnameParam">
@@ -35,6 +36,7 @@
             <if test="paramCondition.signname != null and paramCondition.signname != ''">
                 and signname like CONCAT('%',#{paramCondition.signname},'%')
             </if>
+        order by adddate desc
     </select>
 
     <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.SignnameResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.SignnameParam">
@@ -53,6 +55,7 @@
             <if test="paramCondition.signname != null and paramCondition.signname != ''">
                 and signname like CONCAT('%',#{paramCondition.signname},'%')
             </if>
+        order by adddate desc
     </select>
 
 </mapper>

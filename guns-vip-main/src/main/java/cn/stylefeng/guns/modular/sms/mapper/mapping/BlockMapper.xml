@@ -26,6 +26,7 @@
             <if test="paramCondition.blockmobile != null and paramCondition.blockmobile != ''">
                 and blockmobile like CONCAT('%',#{paramCondition.blockmobile},'%')
             </if>
+        order by adddate desc
     </select>
 
     <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.BlockParam">
@@ -44,6 +45,7 @@
             <if test="paramCondition.blockmobile != null and paramCondition.blockmobile != ''">
                 and blockmobile like CONCAT('%',#{paramCondition.blockmobile},'%')
             </if>
+        order by adddate desc
     </select>
 
     <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.BlockParam">
@@ -53,6 +55,7 @@
             <if test="paramCondition.blockmobile != null and paramCondition.blockmobile != ''">
                 and blockmobile like CONCAT('%',#{paramCondition.blockmobile},'%')
             </if>
+        order by adddate desc
     </select>
 
 </mapper>

@@ -19,13 +19,13 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'taskId', hide: true, title: '主键ID'},
-            {field: 'content', sort: true, title: '内容'},
+            {field: 'entityName', sort: true, title: '用户名'},
             {field: 'srcId', sort: true, title: '源号码'},
             {field: 'destterminalId', sort: true, title: '目的号码'},
-            {field: 'entityName', sort: true, title: '接入码'},
+            {field: 'content', sort: true, title: '内容'},
             {field: 'msgId', sort: true, title: 'Msgid'},
             {field: 'result', sort: true, title: '网关状态'},
-            {field: 'sequenceid', sort: true, title: '序列号'},
+            {field: 'sequenceid', hide: true,sort: true, title: '序列号'},
             {field: 'linkId', hide:true,sort: true, title: 'linkId'},
             {field: 'msgsrc', sort: true, title: '接入号'},
             // {field: 'spid', sort: true, title: '运营商ID'},
@@ -44,7 +44,7 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
             },
             {field: 'province', sort: true, title: '省份'},
             {field: 'city', sort: true, title: '城市'},
-            {field: 'areacode', sort: true, title: '区号'},
+            {field: 'areacode',hide:true, sort: true, title: '区号'},
             // {field: 'status', sort: true, title: '状态 0 未发送，己发送'},
             {
                 field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
@@ -56,11 +56,10 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
                 }
             },
             {field: 'entityid', sort: true, title: '发送网关'},
-            {field: 'realmsgid', sort: true, title: '真实网关返回id'},
-            {field: 'realresult', sort: true, title: '真实网关返回状态'},
+            {field: 'realmsgid', hide: true,sort: true, title: '返回id'},
+            {field: 'realresult', sort: true, title: '返回状态'},
             {field: 'submitDate', sort: true, title: '提交时间'},
-            {field: 'sendDate', sort: true, title: '处理时间'},
-            {align: 'center', toolbar: '#tableBar', title: '操作'}
+            {field: 'sendDate', sort: true, title: '处理时间'}
         ]];
     };
 

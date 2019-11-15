@@ -18,12 +18,12 @@ layui.use(['table', 'admin', 'ax'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'deliverId', hide: true, title: '主键ID'},
-            {field: 'entityName', sort: true, title: '接入码'},
-            {field: 'msgId', sort: true, title: 'Msgid'},
+            {field: 'entityName', sort: true, title: '用户名'},
             {field: 'destid', sort: true, title: '源号码'},
             {field: 'srcterminalid', sort: true, title: '目的号码'},
             {field: 'msgContent', sort: true, title: '上行内容'},
-            {field: 'sequenceId', sort: true, title: 'sequenceId'},
+            {field: 'msgId', sort: true, title: 'Msgid'},
+            {field: 'sequenceId', hide: true,sort: true, title: 'sequenceId'},
             // {field: 'status', sort: true, title: '状态0,未发送，1己发送'},
             {
                 field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
@@ -35,8 +35,7 @@ layui.use(['table', 'admin', 'ax'], function () {
                 }
             },
             {field: 'submitDate', sort: true, title: '提交时间'},
-            {field: 'dealDate', sort: true, title: '处理时间'},
-            {align: 'center', toolbar: '#tableBar', title: '操作'}
+            {field: 'dealDate', sort: true, title: '处理时间'}
         ]];
     };
 

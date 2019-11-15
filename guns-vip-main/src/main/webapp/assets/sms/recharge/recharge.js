@@ -19,9 +19,9 @@ layui.use(['table', 'admin', 'ax'], function () {
             {type: 'checkbox'},
             {field: 'rechargeid', hide: true, title: '主键ID'},
             {field: 'spnumid', sort: true, title: 'spnumid'},
+            {field: 'cnt', sort: true, title: '条数'},
             {field: 'entid', sort: true, title: '企业ID'},
             {field: 'userid', sort: true, title: '操作人'},
-            {field: 'cnt', sort: true, title: '条数'},
             {field: 'remark', sort: true, title: '备注'},
             {field: 'adddate', sort: true, title: '添加时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
