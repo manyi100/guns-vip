@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.core.schedue.spring;
 
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**
@@ -10,6 +12,8 @@ import org.springframework.scheduling.annotation.Scheduled;
  */
 public class SpringTasks {
 
+    @Autowired
+    DruidDataSourceFactory druidDataSourceFactory;
     /**
      * 上一次开始执行时间点之后5秒再执行
      *
@@ -53,4 +57,5 @@ public class SpringTasks {
     public void cron() {
         System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>> spring task执行 >>>>>每隔10秒执行一次！");
     }
+
 }

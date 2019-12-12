@@ -34,6 +34,15 @@
         spnumId AS "spnumId", protocolId AS "protocolId", spId AS "spId", entId AS "entId", spnumIp AS "spnumIp", spnumPort AS "spnumPort", spnum AS "spnum", spnumBody AS "spnumBody", spnumPass AS "spnumPass", sendSpeed AS "sendSpeed", balance AS "balance", price AS "price", province AS "province", channelNum AS "channelNum", entmsnUse AS "entmsnUse", gwStation AS "gwStation", blockarea AS "blockarea", remark AS "remark", clientIp AS "clientIp", version AS "version", status AS "status", submitdate AS "submitdate", dealdate AS "dealdate"
     </sql>
 
+    <select id="list" resultType="map">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_gw_sp_config
+        <if test="condition != null and condition != ''">
+            where spnumBody like CONCAT('%',#{condition},'%') or spnum like CONCAT('%',#{condition},'%')
+        </if>
+        order by submitdate DESC
+    </select>
 
     <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.TGwSpConfigResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
         select
@@ -48,7 +57,7 @@
             <if test="paramCondition.spnum != null and paramCondition.spnum != ''">
                 and spnum like CONCAT('%',#{paramCondition.spnum},'%')
             </if>
-        order by submitDate desc
+        order by submitDate,spnumId desc
     </select>
 
     <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
@@ -67,7 +76,7 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
-        order by submitDate desc
+        order by submitDate,spnumId desc
 
     </select>
 
@@ -87,7 +96,7 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
-        order by submitDate desc
+        order by submitDate,spnumId desc
 
     </select>
 
@@ -107,7 +116,7 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
-        order by submitDate desc
+        order by submitDate,spnumId desc
 
     </select>
 

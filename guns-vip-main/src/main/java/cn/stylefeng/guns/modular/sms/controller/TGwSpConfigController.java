@@ -1,17 +1,24 @@
 package cn.stylefeng.guns.modular.sms.controller;
 
+import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.TGwSpConfig;
 import cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam;
 import cn.stylefeng.guns.modular.sms.service.TGwSpConfigService;
+import cn.stylefeng.guns.modular.sms.wapper.TGwSpConfigWrapper;
+import cn.stylefeng.guns.sys.modular.system.warpper.NoticeWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -125,7 +132,22 @@ public class TGwSpConfigController extends BaseController {
     public LayuiPageInfo list(@RequestParam(required = false) String condition ,TGwSpConfigParam tGwSpConfigParam) {
         if(StringUtils.isNotEmpty(condition))
             tGwSpConfigParam.setSpnum(condition);
+
         return this.tGwSpConfigService.findPageBySpec(tGwSpConfigParam);
+    }
+
+    /**
+     * 查询列表(包装类，是否在线。)
+     *
+     * @author yqy
+     * @Date 2019-10-31
+     */
+    @ResponseBody
+    @RequestMapping("/list2")
+    public LayuiPageInfo list2(String condition) {
+        Page<Map<String, Object>> list = this.tGwSpConfigService.list(condition);
+        Page<Map<String, Object>> wrap = new TGwSpConfigWrapper(list).wrap();
+        return LayuiPageFactory.createPageInfo(wrap);
     }
 
 }

@@ -21,15 +21,15 @@ layui.use(['table', 'admin', 'ax'], function () {
             // {field: 'protocolId', sort: true, title: '协议ID'},
             {
                 field: 'protocolId', sort: true, title: '短信协议', templet: function (d) {
-                    if (d.protocolId === 1) {
+                    if (d.protocolId == 1) {
                         return "SMPP";
-                    } else  if (d.protocolId === 2){
+                    } else  if (d.protocolId == 2){
                         return "SMGP";
-                    }else  if (d.protocolId === 3){
+                    }else  if (d.protocolId == 3){
                         return "CNGP";
-                    }else  if (d.protocolId === 4){
+                    }else  if (d.protocolId == 4){
                         return "CMPP";
-                    }else  if (d.protocolId === 5){
+                    }else  if (d.protocolId == 5){
                         return "SGIP";
                     }
                 }
@@ -37,13 +37,13 @@ layui.use(['table', 'admin', 'ax'], function () {
             // {field: 'spId', sort: true, title: '运营商ID'},
             {
                 field: 'spId', sort: true, title: '运营商', templet: function (d) {
-                    if (d.spId === 1) {
+                    if (d.spId == 1) {
                         return "中国电信";
-                    } else  if (d.spId === 2){
+                    } else  if (d.spId == 2){
                         return "中国网通";
-                    }else  if (d.spId === 3){
+                    }else  if (d.spId == 3){
                         return "中国移动";
-                    }else  if (d.spId === 4){
+                    }else  if (d.spId == 4){
                         return "中国联通";
                     }
                 }
@@ -52,38 +52,47 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'spnumIp', sort: true, title: '接入号IP'},
             {field: 'spnumPort', sort: true, title: '端口号'},
             {field: 'spnum', sort: true, title: 'SP号码'},
+            {
+                field: 'online', sort: true, title: '是否在线', templet: function (d) {
+                    if (d.online == 1) {
+                        return "在线";
+                    } else {
+                        return "断线";
+                    }
+                }
+            },
             {field: 'spnumBody', sort: true, title: '帐号'},
             {field: 'spnumPass', sort: true, title: '密码'},
             {field: 'sendSpeed', sort: true, title: '发送速率'},
             {field: 'balance', sort: true, title: '余额'},
             {field: 'price', sort: true, title: '单价（分）'},
-            {field: 'province', sort: true, title: '落地省份'},
             {field: 'channelNum', sort: true, title: '通道数量'},
             // {field: 'entmsnUse', sort: true, title: '用途：0,服务端，1，客户端'},
             {
                 field: 'entmsnUse', sort: true, title: '用途', templet: function (d) {
-                    if (d.entmsnUse === 0) {
+                    if (d.entmsnUse == 0) {
                         return "服务端";
                     } else {
                         return "客户端";
                     }
                 }
             },
-            {field: 'gwStation', sort: true, title: '网关标记'},
-            {field: 'blockarea', sort: true, title: '屏蔽区域'},
-            {field: 'remark', sort: true, title: '备注'},
-            {field: 'clientIp', sort: true, title: '客户端IP'},
             {field: 'version', sort: true, title: '版本号'},
             // {field: 'status', sort: true, title: '状态'},
             {
                 field: 'status', sort: true, title: '状态', templet: function (d) {
-                    if (d.status === 0) {
+                    if (d.status == 0) {
                         return "启用";
                     } else {
                         return "禁用";
                     }
                 }
             },
+            {field: 'gwStation', sort: true, title: '网关标记'},
+            {field: 'province', sort: true, title: '落地省份'},
+            {field: 'blockarea', sort: true, title: '屏蔽区域'},
+            {field: 'clientIp', sort: true, title: '客户端IP'},
+            {field: 'remark', sort: true, title: '备注'},
             {field: 'submitdate', sort: true, title: '提交时间'},
             {field: 'dealdate', sort: true, title: '修改时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
@@ -113,7 +122,7 @@ layui.use(['table', 'admin', 'ax'], function () {
      */
     TGwSpConfig.exportExcel = function () {
         var checkRows = table.checkStatus(TGwSpConfig.tableId);
-        if (checkRows.data.length === 0) {
+        if (checkRows.data.length == 0) {
             Feng.error("请选择要导出的数据");
         } else {
             table.exportFile(tableResult.config.id, checkRows.data, 'xls');

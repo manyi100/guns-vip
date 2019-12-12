@@ -5,13 +5,16 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.base.shiro.annotion.Permission;
 import cn.stylefeng.guns.modular.sms.entity.Recharge;
+import cn.stylefeng.guns.modular.sms.entity.TGwSpConfig;
 import cn.stylefeng.guns.modular.sms.mapper.TGwSpConfigMapper;
 import cn.stylefeng.guns.modular.sms.model.params.RechargeParam;
 import cn.stylefeng.guns.modular.sms.service.RechargeService;
 import cn.stylefeng.guns.modular.sms.service.TGwSpConfigService;
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
+import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
@@ -21,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,6 +50,8 @@ public class RechargeController extends BaseController {
     RedisTemplate<String, String> redisTemplate;
     @Autowired
     TGwSpConfigService tGwSpConfigService;
+    @Autowired
+    UserService userService;
     /**
      * 跳转到主页面
      *
@@ -88,6 +94,7 @@ public class RechargeController extends BaseController {
     @BussinessLog(value = "短信充值")
     @RequestMapping("/addItem")
     @Permission(Const.ADMIN_NAME)
+    @Transactional
     @ResponseBody
     public ResponseData addItem(RechargeParam rechargeParam) {
 
@@ -95,16 +102,25 @@ public class RechargeController extends BaseController {
         if(!ShiroKit.isAdmin())
         {
             throw new ServiceException(BizExceptionEnum.NO_PERMITION);
-
         }
-        rechargeParam.setEntid(user.getDeptId());
+        //插入记录表
+        TGwSpConfig tGwconfig = tGwSpConfigService.getById(rechargeParam.getSpnumid());
+        String spbody= tGwconfig.getSpnumBody();
+        Long deptid=userService.getByAccount(spbody).getDeptId();
+        rechargeParam.setEntid(deptid);
         rechargeParam.setAdddate(new Date());
         rechargeParam.setUserid(user.getId());
         this.rechargeService.add(rechargeParam);
-        String spbody=tGwSpConfigService.getById(rechargeParam.getSpnumid()).getSpnumBody();
-        int nowcnt=Integer.parseInt(redisTemplate.opsForHash().get(spbody,"balance").toString());
-        nowcnt=nowcnt+rechargeParam.getCnt();
-        redisTemplate.opsForHash().put(spbody,"balance",String.valueOf(nowcnt));
+        //更瓣redis
+        int nowcnt=rechargeParam.getCnt();
+        redisTemplate.opsForHash().increment(spbody,"balance",nowcnt);
+        //更新数据库
+        nowcnt=Integer.parseInt(redisTemplate.opsForHash().get(spbody,"balance").toString());
+        tGwconfig.setBalance(nowcnt);
+        tGwSpConfigService.updateById(tGwconfig);
+        //日志
+        LogObjectHolder.me().set(rechargeParam);
+
         return ResponseData.success();
     }
 
@@ -161,7 +177,7 @@ public class RechargeController extends BaseController {
         if(StringUtils.isNotEmpty(condition))
             rechargeParam.setSpnumid(Long.parseLong(condition));
         ShiroUser user = ShiroKit.getUserNotNull();
-        if(!user.getRoleList().contains(1L))
+        if(!ShiroKit.isAdmin())
         {
             rechargeParam.setEntid(user.getDeptId());
         }

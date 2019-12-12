@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.sms.mapper.ContactsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.sms.entity.Contacts">
+        <id column="contactsid" property="contactsid" />
+        <result column="mobile" property="mobile" />
+        <result column="contactsname" property="contactsname" />
+        <result column="sex" property="sex" />
+        <result column="email" property="email" />
+        <result column="address" property="address" />
+        <result column="qq" property="qq" />
+        <result column="birthday" property="birthday" />
+        <result column="groupid" property="groupid" />
+        <result column="status" property="status" />
+        <result column="entid" property="entid" />
+        <result column="remark" property="remark" />
+        <result column="adddate" property="adddate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        contactsid AS "contactsid", mobile AS "mobile", contactsname AS "contactsname", sex AS "sex", email AS "email", address AS "address", qq AS "qq", birthday AS "birthday", groupid AS "groupid", status AS "status", entid AS "entid", remark AS "remark", adddate AS "adddate"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.ContactsResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.ContactsParam">
+        select
+        <include refid="Base_Column_List"/>
+        from contacts where 1 = 1
+            <if test="paramCondition.mobile != null and paramCondition.mobile != ''">
+                and mobile like CONCAT('%',#{paramCondition.mobile},'%')
+            </if>
+            <if test="paramCondition.contactsname != null and paramCondition.contactsname != ''">
+                and contactsname like CONCAT('%',#{paramCondition.contactsname},'%')
+            </if>
+        <if test="paramCondition.entid != null and paramCondition.entid != ''">
+            and entid like CONCAT('%',#{paramCondition.entid},'%')
+        </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.ContactsParam">
+        select
+        <include refid="Base_Column_List"/>
+        from contacts where 1 = 1
+            <if test="paramCondition.mobile != null and paramCondition.mobile != ''">
+                and mobile like CONCAT('%',#{paramCondition.mobile},'%')
+            </if>
+            <if test="paramCondition.contactsname != null and paramCondition.contactsname != ''">
+                and contactsname like CONCAT('%',#{paramCondition.contactsname},'%')
+            </if>
+            <if test="paramCondition.entid != null and paramCondition.entid != ''">
+                and entid like CONCAT('%',#{paramCondition.entid},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.modular.sms.model.result.ContactsResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.ContactsParam">
+        select
+        <include refid="Base_Column_List"/>
+        from contacts where 1 = 1
+            <if test="paramCondition.mobile != null and paramCondition.mobile != ''">
+                and mobile like CONCAT('%',#{paramCondition.mobile},'%')
+            </if>
+            <if test="paramCondition.contactsname != null and paramCondition.contactsname != ''">
+                and contactsname like CONCAT('%',#{paramCondition.contactsname},'%')
+            </if>
+            <if test="paramCondition.entid != null and paramCondition.entid != ''">
+                and entid like CONCAT('%',#{paramCondition.entid},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.ContactsParam">
+        select
+        <include refid="Base_Column_List"/>
+        from contacts where 1 = 1
+            <if test="paramCondition.mobile != null and paramCondition.mobile != ''">
+                and mobile like CONCAT('%',#{paramCondition.mobile},'%')
+            </if>
+            <if test="paramCondition.contactsname != null and paramCondition.contactsname != ''">
+                and contactsname like CONCAT('%',#{paramCondition.contactsname},'%')
+            </if>
+            <if test="paramCondition.entid != null and paramCondition.entid != ''">
+                and entid like CONCAT('%',#{paramCondition.entid},'%')
+            </if>
+    </select>
+
+</mapper>

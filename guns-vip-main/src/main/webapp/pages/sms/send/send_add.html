@@ -7,120 +7,64 @@
 <div class="layui-fluid " style="">
     <div class="layui-card">
         <div class="layui-card-body">
-            <form id="sendForm" lay-filter="sendForm" class="layui-form model-form" style="max-width: 700px;margin: 40px auto;">
+            <form id="sendForm" lay-filter="sendForm" class="layui-form model-form"
+                  style="max-width: 700px;margin: 40px auto;">
                 <input name="taskId" type="hidden"/>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">内容<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="content" name="content" placeholder="请输入内容" type="text" class="layui-input" lay-verify="required" required/>
+                <div class="layui-tab" lay-filter="demo">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">输入号码发送</li>
+                        <li>导入号码发送</li>
+                        <li>导入通讯录发送</li>
+                        <li>导入Excel个性短信发送</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <div id="numsend">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">输入号码:<span style="color: red;">*</span></label>
+                                    <div class="layui-input-block">
+                                        <textarea id="destterminalId" name="destterminalId" placeholder="请输入目的号码" type="text" class="layui-textarea" lay-verify="required" required></textarea>
+                                    </div>
+                                    <label class="layui-input-block">一行一个号码，回车切换下一行，每次最多能提交100个号码。</label>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">编辑内容：<span style="color: red;">*</span></label>
+                                    <div class="layui-input-block">
+                                        <textarea id="content" name="content" placeholder="请输入内容" type="text" class="layui-textarea" lay-verify="required" required></textarea>
+                                    </div>
+                                    <label class="layui-input-block">*提示：发送内容为[ 0 ]字 | 发送条数为[ 1 ]条 | 每条短信按照[70,67]个字计费
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="layui-tab-item">内容2</div>
+                    <div class="layui-tab-item">内容3</div>
+                    <div class="layui-tab-item">
+                        <div id="batchSend">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">选择文件(20MB):
+                                    .xls .xlsx:<span style="color: red;">*</span></label>
+                                <div class="layui-input-block">
+                                </div>
+                                <button id="btnImp" class="layui-btn icon-btn">
+                                    <i class="layui-icon">&#xe67c;</i>导入发送清单
+                                </button>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">个性短信模板：</label>
+                                <div class="layui-input-block">
+                                    <a href="/customer/PersonalitySms (1).xls.xls">下载</a>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">源号码<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="srcId" name="srcId" placeholder="请输入源号码" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">目的号码<span style="color: red;">*</span></label>
+                    <label class="layui-form-label">发送时间：</label>
                     <div class="layui-input-block">
-                        <input id="destterminalId" name="destterminalId" placeholder="请输入目的号码" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">接入码<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="entityName" name="entityName" placeholder="请输入接入码" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">Msgid<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="msgId" name="msgId" placeholder="请输入Msgid" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">网关返回状态<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="result" name="result" placeholder="请输入网关返回状态" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">网关返回序列号<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="sequenceid" name="sequenceid" placeholder="请输入网关返回序列号" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">linkId<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="linkId" name="linkId" placeholder="请输入linkId" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">接入号<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="msgsrc" name="msgsrc" placeholder="请输入接入号" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">运营商ID<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="spid" name="spid" placeholder="请输入运营商ID" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">省份<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="province" name="province" placeholder="请输入省份" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">城市<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="city" name="city" placeholder="请输入城市" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">区号<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="areacode" name="areacode" placeholder="请输入区号" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">状态 0 未发送，己发送<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="status" name="status" placeholder="请输入状态 0 未发送，己发送" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">发送网关<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="entityid" name="entityid" placeholder="请输入发送网关" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">真实网关返回id<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="realmsgid" name="realmsgid" placeholder="请输入真实网关返回id" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">真实网关返回状态<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="realresult" name="realresult" placeholder="请输入真实网关返回状态" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">提交时间<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="submitDate" name="submitDate" placeholder="请输入提交时间" type="text" class="layui-input" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">处理时间<span style="color: red;">*</span></label>
-                    <div class="layui-input-block">
-                        <input id="sendDate" name="sendDate" placeholder="请输入处理时间" type="text" class="layui-input" lay-verify="required" required/>
+                        <input id="submitDate" name="submitDate" placeholder="请输入发送时间" type="text" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -129,9 +73,9 @@
                         <button class="layui-btn layui-btn-primary" type="button" id="backupPage">&emsp;返回&emsp;</button>
                     </div>
                 </div>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
 </div>
 
 @}

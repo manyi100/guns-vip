@@ -23,15 +23,15 @@ layui.use(['table', 'admin', 'ax'], function () {
             // {field: 'signtype', sort: true, title: '签名类型'},
             {
                 field: 'signtype', align: "center", sort: true, title: '签名类型', templet: function (d) {
-                    if (d.signtype === 0) {
+                    if (d.signtype == 0) {
                         return "行业短信";
-                    } else if (d.signtype === 1){
+                    } else if (d.signtype == 1){
                         return "游戏";
-                    }else if (d.signtype === 2){
+                    }else if (d.signtype == 2){
                         return "信用卡";
-                    }else if (d.signtype === 3){
+                    }else if (d.signtype == 3){
                         return "网贷";
-                    }else if (d.signtype === 4){
+                    }else if (d.signtype == 4){
                         return "通知类";
                     }else{
                         return "其它";
@@ -42,7 +42,7 @@ layui.use(['table', 'admin', 'ax'], function () {
             // {field: 'status', sort: true, title: '状态0,可用，1不可用'},
             {
                 field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
-                    if (d.status === 0) {
+                    if (d.status == 0) {
                         return "启用";
                     } else {
                         return "禁用";
@@ -142,9 +142,9 @@ layui.use(['table', 'admin', 'ax'], function () {
         var data = obj.data;
         var layEvent = obj.event;
 
-        if (layEvent === 'edit') {
+        if (layEvent == 'edit') {
             Signname.openEditDlg(data);
-        } else if (layEvent === 'delete') {
+        } else if (layEvent == 'delete') {
             Signname.onDeleteItem(data);
         }
     });

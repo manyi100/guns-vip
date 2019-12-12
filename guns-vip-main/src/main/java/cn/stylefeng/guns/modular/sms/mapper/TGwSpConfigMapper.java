@@ -53,4 +53,6 @@ public interface TGwSpConfigMapper extends BaseMapper<TGwSpConfig> {
      */
     Page<Map<String, Object>> customPageMapList(@Param("page") Page page, @Param("paramCondition") TGwSpConfigParam paramCondition);
 
+    Page<Map<String, Object>> list(@Param("page") Page page, @Param("condition") String condition);
+
 }

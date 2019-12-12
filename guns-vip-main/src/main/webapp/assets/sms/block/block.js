@@ -1,8 +1,10 @@
-layui.use(['table', 'admin', 'ax'], function () {
+layui.use(['table', 'admin', 'ax','form','upload'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
+    var upload = layui.upload;
+    var form = layui.form;
 
     /**
      * 黑名单表管理
@@ -159,5 +161,19 @@ layui.use(['table', 'admin', 'ax'], function () {
         var checked = obj.elem.checked ? 0 : 1;
 
         Block.changeBlockStatus(blockid, checked);
+    });
+
+
+    //执行实例
+    var uploadInst = upload.render({
+        elem: '#btnImp'
+        , url: '/excel/uploadExcel'
+        ,accept: 'file'
+        , done: function (res) {
+            table.reload(Block.tableId, {url: Feng.ctxPath + "/excel/getUploadBlockData"});
+        }
+        , error: function () {
+            //请求异常回调
+        }
     });
 });

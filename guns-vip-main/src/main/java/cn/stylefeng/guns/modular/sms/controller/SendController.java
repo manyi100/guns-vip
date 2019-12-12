@@ -4,9 +4,12 @@ import cn.hutool.core.date.DateUtil;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.sms.entity.Send;
+import cn.stylefeng.guns.modular.sms.entity.TGwSpConfig;
 import cn.stylefeng.guns.modular.sms.mapper.SendMapper;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
+import cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam;
 import cn.stylefeng.guns.modular.sms.service.SendService;
+import cn.stylefeng.guns.modular.sms.service.TGwSpConfigService;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
@@ -44,7 +47,8 @@ public class SendController extends BaseController {
     private SendService sendService;
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private TGwSpConfigService tGwSpConfigService;
     /**
      * 跳转到主页面
      *
@@ -87,7 +91,29 @@ public class SendController extends BaseController {
     @RequestMapping("/addItem")
     @ResponseBody
     public ResponseData addItem(SendParam sendParam) {
-        this.sendService.add(sendParam);
+        String account=ShiroKit.getUser().getAccount();
+        String phonesStr=sendParam.getDestterminalId();
+        String line=System.getProperty("line.separator");
+        String[] phones=phonesStr.split(line);
+        String spnum="";
+        if(ShiroKit.isAdmin())
+        {
+            spnum="106928113330";
+            account="3330";
+        }else
+        {
+            QueryWrapper<TGwSpConfig> queryWrapper=new QueryWrapper<>();
+            queryWrapper.eq("spnumbody",account);
+            spnum=tGwSpConfigService.getOne(queryWrapper).getSpnum();
+        }
+        for (int i = 0; i <phones.length ; i++) {
+            sendParam.setDestterminalId(phones[i]);
+            sendParam.setEntityName(account);
+            sendParam.setSrcId(spnum);
+            sendParam.setMsgsrc(account);
+            sendParam.setSubmitDate(new Date());
+            this.sendService.add(sendParam);
+        }
         return ResponseData.success();
     }
 

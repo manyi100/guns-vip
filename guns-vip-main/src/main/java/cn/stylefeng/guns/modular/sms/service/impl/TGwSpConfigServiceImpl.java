@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -80,5 +81,8 @@ public class TGwSpConfigServiceImpl extends ServiceImpl<TGwSpConfigMapper, TGwSp
         ToolUtil.copyProperties(param, entity);
         return entity;
     }
-
+    public Page<Map<String, Object>> list(String condition) {
+        Page page = LayuiPageFactory.defaultPage();
+        return this.baseMapper.list(page, condition);
+    }
 }

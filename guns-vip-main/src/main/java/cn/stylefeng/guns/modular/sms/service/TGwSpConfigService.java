@@ -1,12 +1,15 @@
 package cn.stylefeng.guns.modular.sms.service;
 
+import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.sms.entity.TGwSpConfig;
 import cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam;
 import cn.stylefeng.guns.modular.sms.model.result.TGwSpConfigResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -65,5 +68,6 @@ public interface TGwSpConfigService extends IService<TGwSpConfig> {
      * @Date 2019-10-31
      */
      LayuiPageInfo findPageBySpec(TGwSpConfigParam param);
+     Page<Map<String, Object>> list(String condition);
 
 }

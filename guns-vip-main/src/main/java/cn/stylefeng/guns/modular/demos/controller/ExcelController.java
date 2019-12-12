@@ -8,15 +8,20 @@ import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
 import cn.afterturn.easypoi.view.PoiBaseView;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
+import cn.stylefeng.guns.modular.demos.entity.BlockItem;
 import cn.stylefeng.guns.modular.demos.entity.ExcelItem;
+import cn.stylefeng.guns.modular.sms.entity.Block;
+import cn.stylefeng.guns.modular.sms.service.BlockService;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.properties.GunsProperties;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -46,6 +51,9 @@ public class ExcelController {
 
     @Autowired
     private GunsProperties gunsProperties;
+
+    @Autowired
+    private BlockService blockService;
 
     /**
      * excel导入页面
@@ -143,5 +151,46 @@ public class ExcelController {
         modelMap.put(MapExcelConstants.PARAMS, params);
         modelMap.put(MapExcelConstants.FILE_NAME, "Guns管理系统所有用户");
         PoiBaseView.render(modelMap, request, response, MapExcelConstants.EASYPOI_MAP_EXCEL_VIEW);
+    }
+
+    /**
+     * 获取上传成功的数据
+     */
+    @RequestMapping("/getUploadBlockData")
+    @Transactional
+    @ResponseBody
+    public Object getUploadBlockData(HttpServletRequest request) {
+      return  this.getupolad(request, BlockItem.class);
+    }
+    private Object getupolad(HttpServletRequest request,Class<?> pojoClass)
+    {
+        String name = (String) request.getSession().getAttribute("upFile");
+        String fileSavePath = gunsProperties.getFileUploadPath();
+        if (name != null) {
+            File file = new File(fileSavePath + name);
+            try {
+                ImportParams params = new ImportParams();
+//                params.setTitleRows(1);
+                params.setHeadRows(1);
+                List<BlockItem> result = ExcelImportUtil.importExcel(file, pojoClass, params);
+                Block block=null;
+                List<Block> blocks=new ArrayList<>();
+                for (BlockItem blockItem : result) {
+                    block=new Block();
+                    block.setBlockmobile(blockItem.getBlockmobile());
+                    block.setBlocktype(blockItem.getBlocktype());
+                    block.setEntid(blockItem.getEntid());
+                    blocks.add(block);
+                }
+                blockService.saveOrUpdateBatch(blocks);
+                LayuiPageInfo returns = new LayuiPageInfo();
+                returns.setCount(result.size());
+                returns.setData(result);
+                return returns;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
