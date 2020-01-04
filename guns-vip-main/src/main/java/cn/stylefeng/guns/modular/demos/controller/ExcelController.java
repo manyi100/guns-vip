@@ -11,9 +11,13 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.demos.entity.BlockItem;
 import cn.stylefeng.guns.modular.demos.entity.ExcelItem;
 import cn.stylefeng.guns.modular.sms.entity.Block;
+import cn.stylefeng.guns.modular.sms.entity.Contacts;
+import cn.stylefeng.guns.modular.sms.model.params.ContactsParam;
 import cn.stylefeng.guns.modular.sms.service.BlockService;
+import cn.stylefeng.guns.modular.sms.service.ContactsService;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.properties.GunsProperties;
+import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
@@ -54,7 +58,8 @@ public class ExcelController {
 
     @Autowired
     private BlockService blockService;
-
+    @Autowired
+    private ContactsService contactsService;
     /**
      * excel导入页面
      *
@@ -154,10 +159,10 @@ public class ExcelController {
     }
 
     /**
-     * 获取上传成功的数据
+     * 上传黑名单--获取上传成功的数据
      */
     @RequestMapping("/getUploadBlockData")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class, timeout = 600)
     @ResponseBody
     public Object getUploadBlockData(HttpServletRequest request) {
       return  this.getupolad(request, BlockItem.class);
@@ -180,9 +185,53 @@ public class ExcelController {
                     block.setBlockmobile(blockItem.getBlockmobile());
                     block.setBlocktype(blockItem.getBlocktype());
                     block.setEntid(blockItem.getEntid());
-                    blocks.add(block);
+//                    blocks.add(block);
+                    blockService.save(block);
                 }
-                blockService.saveOrUpdateBatch(blocks);
+//                boolean flag= blockService.saveBatch(blocks);
+//                return flag==true ? ResponseData.success(0, "上传成功",null):ResponseData.error(0, "上传失败");
+                LayuiPageInfo returns = new LayuiPageInfo();
+                returns.setCount(result.size());
+                returns.setData(result);
+                return returns;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 上传黑名单--获取上传成功的数据
+     */
+    @RequestMapping("/getUploadContactsData")
+    @Transactional(rollbackFor = Exception.class, timeout = 600)
+    @ResponseBody
+    public Object getUploadContactsData(HttpServletRequest request) {
+        return  this.getContactsupolad(request, Contacts.class);
+    }
+    private Object getContactsupolad(HttpServletRequest request,Class<?> pojoClass)
+    {
+        String name = (String) request.getSession().getAttribute("upFile");
+        String fileSavePath = gunsProperties.getFileUploadPath();
+        if (name != null) {
+            File file = new File(fileSavePath + name);
+            try {
+                ImportParams params = new ImportParams();
+//                params.setTitleRows(1);
+                params.setHeadRows(1);
+                List<Contacts> result = ExcelImportUtil.importExcel(file, pojoClass, params);
+                ContactsParam cp=null;
+                Long deptId = ShiroKit.getUser().getDeptId();
+                for (Contacts contact : result) {
+                    cp=new ContactsParam();
+                    cp.setMobile(contact.getMobile());
+                    cp.setEntid(deptId);
+                    cp.setContactsid(1L);
+                    contactsService.add(cp);
+                }
+//                boolean flag= blockService.saveBatch(blocks);
+//                return flag==true ? ResponseData.success(0, "上传成功",null):ResponseData.error(0, "上传失败");
                 LayuiPageInfo returns = new LayuiPageInfo();
                 returns.setCount(result.size());
                 returns.setData(result);

@@ -38,14 +38,18 @@ layui.use(['table', 'admin', 'ax'], function () {
                     }
                 }
             },
-            {field: 'remark', sort: true, title: '备注'},
-            // {field: 'status', sort: true, title: '状态0,可用，1不可用'},
+            {field: 'remark', sort: true, title: '短信模板'},
+            // {field: 'status', sort: true, title: '状态0,可用，1不可用，2，审核中，3驳回'},
             {
                 field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
                     if (d.status == 0) {
                         return "启用";
-                    } else {
+                    } else if(d.status == 1) {
                         return "禁用";
+                    } else if(d.status == 2) {
+                        return "审核中";
+                    } else if(d.status == 3) {
+                        return "己驳回";
                     }
                 }
             },

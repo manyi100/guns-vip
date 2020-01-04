@@ -23,12 +23,22 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'submitcnt', sort: true, title: '提交数量'},
             {field: 'submitsucccnt', sort: true, title: '提交成功'},
             {field: 'submitfailcnt', sort: true, title: '提交失败'},
-            {field: 'submitsuccrate', sort: true, title: '提交成功率'},
+            // {field: 'submitsuccrate', sort: true, title: '提交成功率'},
+            {
+                field: 'submitsuccrate', sort: true, title: '提交成功率', templet: function (d) {
+                    return d.submitsuccrate.toFixed(2)*100+"%";
+                }
+            },
             {field: 'reportcnt', sort: true, title: '报告数量'},
             {field: 'reportsucccnt', sort: true, title: '报告成功'},
             {field: 'reportfailcnt', sort: true, title: '报告失败'},
             {field: 'reportunknowcnt', sort: true, title: '报告未知'},
-            {field: 'reportsuccrate', sort: true, title: '报告成功率'},
+            // {field: 'reportsuccrate', sort: true, title: '报告成功率'},
+            {
+                field: 'reportsuccrate', sort: true, title: '报告成功率', templet: function (d) {
+                    return d.reportsuccrate.toFixed(2)*100+"%";
+                }
+            },
             {field: 'submitDate', sort: true, title: '创建时间'},
             {field: 'updateDate', sort: true, title: '更新时间'},
         ]];

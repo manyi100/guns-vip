@@ -1,21 +1,33 @@
 package cn.stylefeng.guns.modular.sms.controller;
 
+import cn.stylefeng.guns.base.db.entity.DatabaseInfo;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.sms.entity.Contacts;
+import cn.stylefeng.guns.modular.sms.entity.Contactsgroup;
 import cn.stylefeng.guns.modular.sms.model.params.ContactsParam;
 import cn.stylefeng.guns.modular.sms.service.ContactsService;
+import cn.stylefeng.guns.modular.sms.service.ContactsgroupService;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -33,6 +45,8 @@ public class ContactsController extends BaseController {
     @Autowired
     private ContactsService contactsService;
 
+    @Autowired
+    private ContactsgroupService contactsgroupService;
     /**
      * 跳转到主页面
      *
@@ -70,14 +84,23 @@ public class ContactsController extends BaseController {
      * 新增接口
      *
      * @author yqy
-     * @Date 2019-12-10
+     * @Date 2019-12-10@RequestParam(required = true) String condition,
      */
     @RequestMapping("/addItem")
     @ResponseBody
     public ResponseData addItem(ContactsParam contactsParam) {
         ShiroUser user = ShiroKit.getUserNotNull();
         contactsParam.setEntid(user.getDeptId());
-        contactsParam.setBirthday(new Date());
+        Integer groupid = contactsParam.getGroupid();
+        if(null==groupid ||groupid.toString().equals(""))
+        {
+            return ResponseData.error("请选择联系人分组");
+//            throw new ServiceException(CoreExceptionEnum.valueOf("请选择联系人分组"));
+//            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+        }
+        Date birthday = contactsParam.getBirthday();
+        if(null==birthday)
+            contactsParam.setBirthday(null);
         contactsParam.setAdddate(new Date());
         this.contactsService.add(contactsParam);
         return ResponseData.success();
@@ -140,7 +163,22 @@ public class ContactsController extends BaseController {
         }
         return this.contactsService.findPageBySpec(contactsParam);
     }
+    @ResponseBody
+    @RequestMapping("/gen")
+    public ResponseData gendropList() {
+        ShiroUser user = ShiroKit.getUserNotNull();
+        QueryWrapper<Contactsgroup> objectQueryWrapper = new QueryWrapper<>();
+        objectQueryWrapper.eq("entid",user.getDeptId());
+        List<Contactsgroup> all = contactsgroupService.list(objectQueryWrapper);
+        return ResponseData.success(all);
+    }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 }
 
 

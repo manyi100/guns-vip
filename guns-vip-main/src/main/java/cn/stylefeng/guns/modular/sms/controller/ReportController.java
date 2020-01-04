@@ -126,7 +126,7 @@ public class ReportController extends BaseController {
     @RequestMapping("/list")
     public LayuiPageInfo list(@RequestParam(required = false) String condition, @RequestParam(required = false) String senddate,ReportParam reportParam) {
         if(StringUtils.isNotEmpty(condition))
-            reportParam.setStat(condition);
+            reportParam.setSrcterminalid(condition);
         if(StringUtils.isNotEmpty(senddate))
             reportParam.setSubmitDate(DateUtil.parseDate(senddate));
         if(!ShiroKit.isAdmin())

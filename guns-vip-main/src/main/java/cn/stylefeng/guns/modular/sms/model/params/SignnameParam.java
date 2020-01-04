@@ -33,7 +33,7 @@ public class SignnameParam implements Serializable, BaseValidatingParam {
     /**
      * 企业ID
      */
-    private Integer entid;
+    private Long entid;
 
     /**
      * 黑名单类型

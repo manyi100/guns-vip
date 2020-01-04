@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.modular.sms.service.impl;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateTime;
 import cn.stylefeng.guns.base.db.util.DbUtil;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
@@ -107,8 +109,11 @@ public class SendServiceImpl extends ServiceImpl<SendMapper, Send> implements Se
         return this.count(queryWrapper);
     }
     public List<Map<String, Object>> getThisMonth(String userid) {
+        DateTime now = DateTime.now();
+        DateTime startdt=now.offsetNew(DateField.DAY_OF_MONTH,-30);
         QueryWrapper<Send> queryWrapper=new QueryWrapper<>();
         queryWrapper.select("date_format(submitDate,'%Y-%m-%d') as submitDate","count(1) as cnt");
+        queryWrapper.between("submitDate",startdt.toString("yyyy-MM-dd 00:00:00"),now.toString("yyyy-MM-dd 23:59:59"));
         SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM");
         String dateStr=sdf.format(new Date());
         if(StringUtils.isNotEmpty(userid)) {

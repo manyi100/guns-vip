@@ -167,7 +167,7 @@ layui.use(['table', 'admin', 'ax','form','upload'], function () {
     //执行实例
     var uploadInst = upload.render({
         elem: '#btnImp'
-        , url: '/excel/uploadExcel'
+        ,url: '/excel/uploadExcel'
         ,accept: 'file'
         , done: function (res) {
             table.reload(Block.tableId, {url: Feng.ctxPath + "/excel/getUploadBlockData"});

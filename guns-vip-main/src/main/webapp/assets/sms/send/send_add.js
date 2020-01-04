@@ -11,7 +11,7 @@ var SendInfoDlg = {
     }
 };
 
-layui.use(['form', 'admin', 'ax','element', 'laydate'], function () {
+layui.use(['form', 'admin', 'ax','element', 'laydate','upload'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;

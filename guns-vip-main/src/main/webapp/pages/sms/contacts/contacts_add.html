@@ -10,9 +10,11 @@
             <form id="contactsForm" lay-filter="contactsForm" class="layui-form model-form" style="max-width: 700px;margin: 40px auto;">
                 <input name="contactsid" type="hidden"/>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">组别<span style="color: red;">*</span></label>
+                    <label class="layui-form-label">联系人分组<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input id="groupid" name="groupid" placeholder="请输入组别" type="text" class="layui-input" lay-verify="required" required/>
+                        <select name="groupid" id="groupid" lay-filter="groupid" lay-verify="required">
+                            <option value="">请选择联系人分组</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -81,4 +83,7 @@
     </div>
 </div>
 
+<script type="text/html" id="tableBar">
+    <a class="layui-btn layui-btn-xs layui-hide" name="con-btn" id="{{d.tableName}}_opt" lay-event="conditionEdit" lay-tips="配置生成mapper.xml时，是否生成相关查询条件">查询条件</a>
+</script>
 @}
