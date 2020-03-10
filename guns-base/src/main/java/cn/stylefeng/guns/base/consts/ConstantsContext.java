@@ -98,7 +98,18 @@ public class ConstantsContext {
             return systemName;
         }
     }
-
+    /**n
+     * 获取公司名称
+     */
+    public static String getCompanyName() {
+        String systemName = (String) CONSTNTS_HOLDER.get("GUNS_COMPANY_NAME");
+        if (ToolUtil.isEmpty(systemName)) {
+            log.error("系统常量存在空值！常量名称：GUNS_COMPANY_NAME，采用默认名称：爱乐信");
+            return "爱乐信";
+        } else {
+            return systemName;
+        }
+    }
     /**
      * 获取管理系统名称
      */

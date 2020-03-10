@@ -5,11 +5,18 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.sms.entity.Send;
 import cn.stylefeng.guns.modular.sms.entity.TGwSpConfig;
+import cn.stylefeng.guns.modular.sms.mapper.DaystatMapper;
 import cn.stylefeng.guns.modular.sms.mapper.SendMapper;
+import cn.stylefeng.guns.modular.sms.model.params.DaystatParam;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam;
+import cn.stylefeng.guns.modular.sms.model.result.DaystatResult;
+import cn.stylefeng.guns.modular.sms.service.DaystatService;
+import cn.stylefeng.guns.modular.sms.service.MonthstatService;
 import cn.stylefeng.guns.modular.sms.service.SendService;
 import cn.stylefeng.guns.modular.sms.service.TGwSpConfigService;
+import cn.stylefeng.guns.modular.sms.service.impl.DaystatServiceImpl;
+import cn.stylefeng.guns.modular.sms.service.impl.MonthstatServiceImpl;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
@@ -47,6 +54,10 @@ public class SendController extends BaseController {
     private SendService sendService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private DaystatService daystatService;
+    @Autowired
+    private MonthstatService monthstatService;
     @Autowired
     private TGwSpConfigService tGwSpConfigService;
     /**
@@ -192,10 +203,12 @@ public class SendController extends BaseController {
         int nowcnt =0;
         if(!ShiroKit.isAdmin()) {
             String account = currentUser.getAccount();
-            nowcnt=sendService.getDayCount(account);
+//            nowcnt=sendService.getDayCount(account);
+            nowcnt=daystatService.getDayCount(account);
         }else
         {
-            nowcnt=sendService.getDayCount("");
+//            nowcnt=sendService.getDayCount("");
+            nowcnt=daystatService.getDayCount("");
         }
         return new SuccessResponseData(nowcnt);
     }
@@ -214,10 +227,12 @@ public class SendController extends BaseController {
         int nowcnt =0;
         if(!ShiroKit.isAdmin()) {
             String account = currentUser.getAccount();
-            nowcnt=sendService.getMonthCount(account);
+//            nowcnt=sendService.getMonthCount(account);
+            nowcnt=daystatService.getMonthCount(account);
         }else
         {
-            nowcnt=sendService.getMonthCount("");
+//            nowcnt=sendService.getMonthCount("");
+            nowcnt=daystatService.getMonthCount("");
         }
         return new SuccessResponseData(nowcnt);
     }
@@ -236,10 +251,12 @@ public class SendController extends BaseController {
         List<Map<String, Object>> nowcnt;
         if(!ShiroKit.isAdmin()) {
             String account = currentUser.getAccount();
-            nowcnt=sendService.getThisMonth(account);
+//            nowcnt=sendService.getThisMonth(account);
+            nowcnt=daystatService.getThisMonth(account);
         }else
         {
-            nowcnt=sendService.getThisMonth("");
+//            nowcnt=sendService.getThisMonth("");
+            nowcnt=daystatService.getThisMonth("");
         }
         return new SuccessResponseData(nowcnt);
     }

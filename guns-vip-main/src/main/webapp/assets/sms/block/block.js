@@ -22,7 +22,18 @@ layui.use(['table', 'admin', 'ax','form','upload'], function () {
             {field: 'blockid', hide: true, title: '主键ID'},
             {field: 'blockmobile', sort: true, title: '黑名单号码'},
             {field: 'entid', sort: true, title: '企业ID'},
-            {field: 'blocktype', sort: true, title: '黑名单类型'},
+            // {field: 'blocktype', sort: true, title: '黑名单类型'},
+            {
+                field: 'blocktype', align: "center", sort: true, title: '黑名单类型', templet: function (d) {
+                    if (d.blocktype == 0) {
+                        return "黑名单";
+                    } else if (d.blocktype == 1){
+                        return "白名单";
+                    }else if (d.blocktype == 2){
+                        return "红名单";
+                    }
+                }
+            },
             {field: 'remark', sort: true, title: '备注'},
             {field: 'status', sort: true,templet: '#statusTpl', title: '状态'},
             {field: 'adddate', sort: true, title: '添加时间'},

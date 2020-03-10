@@ -108,6 +108,10 @@ public class TGwSpConfigResult implements Serializable {
      * 备注
      */
     private String remark;
+    /**
+     * 时间限制
+     */
+    private String limitime;
 
     /**
      * 客户端IP
@@ -123,6 +127,10 @@ public class TGwSpConfigResult implements Serializable {
      * 状态0,可用，1，不可用
      */
     private Integer status;
+    private Integer online;
+    private Integer frequency;
+    private Integer issignname;
+    private Integer istemplate;
 
     /**
      * 提交时间
@@ -133,5 +141,7 @@ public class TGwSpConfigResult implements Serializable {
      * 处理时间
      */
     private Date dealdate;
+
+
 
 }

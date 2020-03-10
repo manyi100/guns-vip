@@ -20,9 +20,14 @@ var TGwSpConfigInfoDlg = {
         gwStation: "",
         blockarea: "",
         remark: "",
+        limitime: "",
         clientIp: "",
         version: "",
         status: "",
+        online: "",
+        frequency: "",
+        issignname: "",
+        istemplate: "",
         submitdate: "",
         dealdate: ""
     }

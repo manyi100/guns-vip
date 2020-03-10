@@ -18,7 +18,6 @@ layui.use(['table', 'admin', 'ax'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'spnumId', hide: false, title: 'spnumId'},
-            // {field: 'protocolId', sort: true, title: '协议ID'},
             {
                 field: 'protocolId', sort: true, title: '短信协议', templet: function (d) {
                     if (d.protocolId == 1) {
@@ -34,7 +33,6 @@ layui.use(['table', 'admin', 'ax'], function () {
                     }
                 }
             },
-            // {field: 'spId', sort: true, title: '运营商ID'},
             {
                 field: 'spId', sort: true, title: '运营商', templet: function (d) {
                     if (d.spId == 1) {
@@ -67,7 +65,6 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'balance', sort: true, title: '余额'},
             {field: 'price', sort: true, title: '单价（分）'},
             {field: 'channelNum', sort: true, title: '通道数量'},
-            // {field: 'entmsnUse', sort: true, title: '用途：0,服务端，1，客户端'},
             {
                 field: 'entmsnUse', sort: true, title: '用途', templet: function (d) {
                     if (d.entmsnUse == 0) {
@@ -78,7 +75,6 @@ layui.use(['table', 'admin', 'ax'], function () {
                 }
             },
             {field: 'version', sort: true, title: '版本号'},
-            // {field: 'status', sort: true, title: '状态'},
             {
                 field: 'status', sort: true, title: '状态', templet: function (d) {
                     if (d.status == 0) {
@@ -89,9 +85,29 @@ layui.use(['table', 'admin', 'ax'], function () {
                 }
             },
             {field: 'gwStation', sort: true, title: '网关标记'},
-            {field: 'province', sort: true, title: '落地省份'},
+            {field: 'province', sort: true, title: '通道号/落地'},
             {field: 'blockarea', sort: true, title: '屏蔽区域'},
             {field: 'clientIp', sort: true, title: '客户端IP'},
+            {field: 'limitime', sort: true, title: '时间限制'},
+            {field: 'frequency', sort: true, title: '频次限制'},
+            {
+                field: 'issignname', sort: true, title: '签名限制', templet: function (d) {
+                    if (d.issignname == 1) {
+                        return "启用";
+                    } else {
+                        return "禁用";
+                    }
+                }
+            },
+            {
+                field: 'istemplate', sort: true, title: '内容审核', templet: function (d) {
+                    if (d.istemplate == 1) {
+                        return "启用";
+                    } else {
+                        return "禁用";
+                    }
+                }
+            },
             {field: 'remark', sort: true, title: '备注'},
             {field: 'submitdate', sort: true, title: '提交时间'},
             {field: 'dealdate', sort: true, title: '修改时间'},

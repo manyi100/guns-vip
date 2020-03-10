@@ -5,8 +5,10 @@ import cn.stylefeng.guns.modular.sms.entity.Daystat;
 import cn.stylefeng.guns.modular.sms.model.params.DaystatParam;
 import cn.stylefeng.guns.modular.sms.model.result.DaystatResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -65,5 +67,10 @@ public interface DaystatService extends IService<Daystat> {
      * @Date 2019-11-14
      */
      LayuiPageInfo findPageBySpec(DaystatParam param);
+
+    int getMonthCount(String userid);
+
+    int getDayCount(String userid);
+    List<Map<String, Object>> getThisMonth(String userid);
 
 }

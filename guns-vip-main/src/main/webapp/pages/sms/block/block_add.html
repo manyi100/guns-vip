@@ -21,18 +21,25 @@
 <!--                        <input id="entid" name="entid" placeholder="请输入企业ID" type="text" class="layui-input" lay-verify="required" required/>-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">黑名单类型<span style="color: red;">*</span></label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input id="blocktype" name="blocktype" placeholder="请输入黑名单类型" type="text" class="layui-input" lay-verify="required" required/>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">备注<span style="color: red;">*</span></label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input id="remark" name="remark" placeholder="请输入备注" type="text" class="layui-input" lay-verify="required" required/>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">黑名单类型<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <div class="layui-form layui-inline">
+                            <select id="blocktype" name="blocktype" lay-verify="required" required>
+                                <option value="">黑名单类型</option>
+                                <option value="0">黑名单</option>
+                                <option value="1">白名单</option>
+                                <option value="3">红名单</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
+                        <input id="remark" name="remark" placeholder="请输入备注" type="text" class="layui-input"/>
+                    </div>
+                </div>
 <!--                <div class="layui-form-item">-->
 <!--                    <label class="layui-form-label">状态0,可用，1不可用<span style="color: red;">*</span></label>-->
 <!--                    <div class="layui-input-block">-->

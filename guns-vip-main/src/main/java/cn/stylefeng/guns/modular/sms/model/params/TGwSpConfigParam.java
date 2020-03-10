@@ -105,6 +105,8 @@ public class TGwSpConfigParam implements Serializable, BaseValidatingParam {
      */
     private String blockarea;
 
+    private String limitime;
+
     /**
      * 备注
      */
@@ -125,6 +127,10 @@ public class TGwSpConfigParam implements Serializable, BaseValidatingParam {
      */
     private Integer status;
 
+    private Integer online;
+    private Integer frequency;
+    private Integer issignname;
+    private Integer istemplate;
     /**
      * 提交时间
      */

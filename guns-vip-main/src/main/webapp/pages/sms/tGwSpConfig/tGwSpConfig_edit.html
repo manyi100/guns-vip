@@ -12,19 +12,32 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">协议ID<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input id="protocolId" name="protocolId" placeholder="请输入协议ID，1，SMPP，2，SMGP，3，CNGP，4，CMPP，5，SGIP" type="text" class="layui-input" lay-verify="required" required/>
+                        <select id="protocolId" name="protocolId">
+                            <option value="">短信协议</option>
+                            <option value="1">SMPP</option>
+                            <option value="2">SMGP</option>
+                            <option value="3">CNGP</option>
+                            <option value="4">CMPP</option>
+                            <option value="5">SGIP</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">运营商ID<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input id="spId" name="spId" placeholder="请输入运营商ID，1，电信，2，网通 3，移动 4，联通  (注意发送电信就填电信，移动 就选 移动)" type="text" class="layui-input" lay-verify="required" required/>
+                        <select id="spId" name="spId" >
+                            <option value="">运营商</option>
+                            <option value="1">中国电信</option>
+                            <option value="2">中国网通</option>
+                            <option value="3">中国移动</option>
+                            <option value="4">中国联通</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">企业ID<span style="color: red;">*</span></label>
+                    <label class="layui-form-label">通道类型<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input id="entId" name="entId" placeholder="请输入企业ID，0，管理员，1，2，3" type="text" class="layui-input" lay-verify="required" required/>
+                        <input id="entId" name="entId" placeholder="请输入1为电信，3为移动，4为联通 134为三网" type="text" class="layui-input" lay-verify="required" required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -70,15 +83,15 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">单价，分<span style="color: red;">*</span></label>
+                    <label class="layui-form-label">单价-分<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
                         <input id="price" name="price" placeholder="请输入单价，分" type="text" class="layui-input" lay-verify="required" required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">落地省份</label>
+                    <label class="layui-form-label">通道号/省份</label>
                     <div class="layui-input-block">
-                        <input id="province" name="province" placeholder="请输入落地省份" type="text" class="layui-input"/>
+                        <input id="province" name="province" placeholder="请输指定走哪条通道" type="text" class="layui-input" lay-verify="required" required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -88,9 +101,14 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">用途：0,管理员，1，客户端<span style="color: red;">*</span></label>
+                    <label class="layui-form-label">用途<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input id="entmsnUse" name="entmsnUse" placeholder="请输入用途：0,管理员，1，客户端" type="text" class="layui-input" lay-verify="required" required/>
+<!--                        <input id="entmsnUse" name="entmsnUse" placeholder="请输入用途：0,管理员，1，客户端" type="text" class="layui-input" lay-verify="required" required/>-->
+                        <select id="entmsnUse" name="entmsnUse" lay-verify="required" required>
+                            <option value="">用途</option>
+                            <option value="0">服务端</option>
+                            <option value="1">客户端</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -99,22 +117,49 @@
                         <input id="gwStation" name="gwStation" placeholder="请输入网关标记" type="text" class="layui-input" lay-verify="required" required/>
                     </div>
                 </div>
+
                 <div class="layui-form-item">
-                    <label class="layui-form-label">屏蔽区域，格式如下：北京，南京，上海</label>
+                    <label class="layui-form-label">客户端IP<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <input id="clientIp" name="clientIp" placeholder="请输入客户端IP" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">屏蔽区域</label>
                     <div class="layui-input-block">
                         <input id="blockarea" name="blockarea" placeholder="请输入屏蔽区域，格式如下：北京，南京，上海" type="text" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">备注</label>
+                    <label class="layui-form-label">时间限制</label>
                     <div class="layui-input-block">
-                        <input id="remark" name="remark" placeholder="请输入备注" type="text" class="layui-input" />
+                        <input id="limitime" name="limitime" placeholder="限制时间段如：10：00-18：00" type="text" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">客户端IP<span style="color: red;">*</span></label>
+                    <label class="layui-form-label">频次限制<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input id="clientIp" name="clientIp" placeholder="请输入客户端IP" type="text" class="layui-input" lay-verify="required" required/>
+                        <input id="frequency" name="frequency" placeholder="默认1天1次" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">签名限制<span style="color: red;">*</span></label>
+                    <div class="layui-form layui-inline">
+                        <select id="issignname" name="issignname" lay-verify="required" required>
+                            <option value="">状态</option>
+                            <option value="0">关闭</option>
+                            <option value="1">开启</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内容审核<span style="color: red;">*</span></label>
+                    <div class="layui-form layui-inline">
+                        <select id="istemplate" name="istemplate" lay-verify="required" required>
+                            <option value="">状态</option>
+                            <option value="0">关闭</option>
+                            <option value="1">开启</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -124,9 +169,20 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">状态0,可用，1，不可用<span style="color: red;">*</span></label>
+                    <label class="layui-form-label">备注</label>
                     <div class="layui-input-block">
-                        <input id="status" name="status" placeholder="请输入状态0,可用，1，不可用" type="text" class="layui-input" lay-verify="required" required/>
+                        <input id="remark" name="remark" placeholder="请输入备注" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+<!--                        <input id="status" name="status" placeholder="请输入状态0,可用，1，不可用" type="text" class="layui-input" lay-verify="required" required/>-->
+                        <select id="status" name="status" lay-verify="required" required>
+                            <option value="">状态</option>
+                            <option value="0">启用</option>
+                            <option value="1">禁用</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">

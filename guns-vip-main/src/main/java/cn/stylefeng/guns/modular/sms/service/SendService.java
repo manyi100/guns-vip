@@ -89,15 +89,18 @@ public interface SendService extends IService<Send> {
 //
 //    int getMonthCount(@Param("userid") String userid,@Param("submitDate") String adddate);
 
-    @Select("Select count(*) as count " +
-            "from send where entityName=#{userid} and date_format(submitDate,'%Y-%m-%d')=#{submitDate}" +
-            "group by entityName,date_format(submitDate,'%Y-%m-%d')")
+//    @Select("Select count(*) as count " +
+//            "from send where entityName=#{userid} and date_format(submitDate,'%Y-%m-%d')=#{submitDate}" +
+//            "group by entityName,date_format(submitDate,'%Y-%m-%d')")
+    @Select(" select submitcnt from daystat " +
+            " where entityName=#{userid} and date_format(submitDate,'%Y-%m-%d')=#{submitDate}"
+            )
     int getDayCount(String userid);
 
 
-    @Select("Select count(*) as count " +
-            "from send where entityName=#{userid} and date_format(submitDate,'%Y-%m')=#{submitDate}" +
-            "group by entityName,date_format(submitDate,'%Y-%m')")
+    @Select(" select submitcnt from monthstat  " +
+            "from send where entityName=#{userid} and date_format(submitDate,'%Y-%m')=#{submitDate}"
+           )
     int getMonthCount(String userid);
 
     List<Map<String, Object>> getThisMonth(String userid);

@@ -129,6 +129,11 @@ public class TGwSpConfig implements Serializable {
     private String remark;
 
     /**
+     * 时间限制
+     */
+    @TableField("limitime")
+    private String limitime;
+    /**
      * 客户端IP
      */
     @TableField("clientIp")
@@ -146,6 +151,29 @@ public class TGwSpConfig implements Serializable {
     @TableField("status")
     private Integer status;
 
+    /**
+     *新增是否在线
+     */
+    @TableField("online")
+    private Integer online;
+    /**
+     *    private Integer online;//新增是否在线
+     *     private Integer frequency;//新增频次限制（默认一天）
+     *     private Integer issignname;//新增是否开启签名(默认是0，1加载，0不加载)
+     *     private Integer istemplate;//新增是否加载模板
+     */
+    @TableField("frequency")
+    private Integer frequency;
+    /**
+     * 新增是否开启签名(默认是0，1加载，0不加载)
+     */
+    @TableField("issignname")
+    private Integer issignname;
+    /**
+     *新增是否加载模板
+     */
+    @TableField("istemplate")
+    private Integer istemplate;
     /**
      * 提交时间
      */
@@ -342,6 +370,47 @@ public class TGwSpConfig implements Serializable {
     public void setDealdate(Date dealdate) {
         this.dealdate = dealdate;
     }
+    public String getLimitime() {
+        return limitime;
+    }
+
+    public void setLimitime(String limitime) {
+        this.limitime = limitime;
+    }
+
+
+
+    public Integer getOnline() {
+        return online;
+    }
+
+    public void setOnline(Integer online) {
+        this.online = online;
+    }
+
+    public Integer getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Integer frequency) {
+        this.frequency = frequency;
+    }
+
+    public Integer getIssignname() {
+        return issignname;
+    }
+
+    public void setIssignname(Integer issignname) {
+        this.issignname = issignname;
+    }
+
+    public Integer getIstemplate() {
+        return istemplate;
+    }
+
+    public void setIstemplate(Integer istemplate) {
+        this.istemplate = istemplate;
+    }
 
     @Override
     public String toString() {
@@ -364,6 +433,7 @@ public class TGwSpConfig implements Serializable {
         ", gwStation=" + gwStation +
         ", blockarea=" + blockarea +
         ", remark=" + remark +
+        ", limitime=" + limitime +
         ", clientIp=" + clientIp +
         ", version=" + version +
         ", status=" + status +

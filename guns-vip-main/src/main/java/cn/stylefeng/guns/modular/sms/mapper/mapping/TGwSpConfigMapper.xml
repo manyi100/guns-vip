@@ -22,16 +22,22 @@
         <result column="gwStation" property="gwStation" />
         <result column="blockarea" property="blockarea" />
         <result column="remark" property="remark" />
+        <result column="limitime" property="limitime" />
         <result column="clientIp" property="clientIp" />
         <result column="version" property="version" />
         <result column="status" property="status" />
+        <result column="online" property="online" />
+        <result column="frequency" property="frequency" />
+        <result column="issignname" property="issignname" />
+        <result column="istemplate" property="istemplate" />
         <result column="submitdate" property="submitdate" />
         <result column="dealdate" property="dealdate" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        spnumId AS "spnumId", protocolId AS "protocolId", spId AS "spId", entId AS "entId", spnumIp AS "spnumIp", spnumPort AS "spnumPort", spnum AS "spnum", spnumBody AS "spnumBody", spnumPass AS "spnumPass", sendSpeed AS "sendSpeed", balance AS "balance", price AS "price", province AS "province", channelNum AS "channelNum", entmsnUse AS "entmsnUse", gwStation AS "gwStation", blockarea AS "blockarea", remark AS "remark", clientIp AS "clientIp", version AS "version", status AS "status", submitdate AS "submitdate", dealdate AS "dealdate"
+        spnumId AS "spnumId", protocolId AS "protocolId", spId AS "spId", entId AS "entId", spnumIp AS "spnumIp", spnumPort AS "spnumPort", spnum AS "spnum", spnumBody AS "spnumBody", spnumPass AS "spnumPass", sendSpeed AS "sendSpeed", balance AS "balance", price AS "price", province AS "province", channelNum AS "channelNum", entmsnUse AS "entmsnUse", gwStation AS "gwStation", blockarea AS "blockarea", remark AS "remark", limitime AS "limitime", clientIp AS "clientIp", version AS "version", status AS "status", submitdate AS "submitdate", dealdate AS "dealdate"
+        ,istemplate AS "istemplate",issignname AS "issignname", frequency AS "frequency", online AS "online"
     </sql>
 
     <select id="list" resultType="map">

@@ -7,6 +7,7 @@ import cn.stylefeng.guns.modular.sms.model.result.MonthstatResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -65,5 +66,6 @@ public interface MonthstatService extends IService<Monthstat> {
      * @Date 2019-11-14
      */
      LayuiPageInfo findPageBySpec(MonthstatParam param);
+
 
 }

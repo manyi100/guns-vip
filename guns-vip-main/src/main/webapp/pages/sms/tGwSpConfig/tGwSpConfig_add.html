@@ -130,15 +130,48 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">落地省份</label>
+                    <label class="layui-form-label">通道号/落地省份</label>
                     <div class="layui-input-block">
-                        <input id="province" name="province" placeholder="请输入落地省份" type="text" class="layui-input" />
+                        <input id="province" name="province" placeholder="请输入通道号/落地省份" type="text" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">屏蔽区域</label>
                     <div class="layui-input-block">
                         <input id="blockarea" name="blockarea" placeholder="请输入屏蔽区域，格式如下：北京，南京，上海" type="text" class="layui-input" />
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">时间限制</label>
+                    <div class="layui-input-block">
+                        <input id="limitime" name="limitime" placeholder="限制时间段如：10：00-18：00" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">频次限制</label>
+                    <div class="layui-input-block">
+                        <input id="frequency" name="frequency" placeholder="默认1天1次" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">签名限制<span style="color: red;">*</span></label>
+                    <div class="layui-form layui-inline">
+                        <select id="issignname" name="issignname" lay-verify="required" required>
+                            <option value="">状态</option>
+                            <option value="0">关闭</option>
+                            <option value="1">开启</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内容审核<span style="color: red;">*</span></label>
+                    <div class="layui-form layui-inline">
+                        <select id="istemplate" name="istemplate" lay-verify="required" required>
+                            <option value="">状态</option>
+                            <option value="0">关闭</option>
+                            <option value="1">开启</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
