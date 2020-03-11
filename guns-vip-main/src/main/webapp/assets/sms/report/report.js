@@ -42,15 +42,22 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
             {field: 'dealDate', sort: true, title: '处理时间'}
         ]];
     };
-
+//执行一个laydate实例
+    laydate.render({
+        elem: '#submitDate' //指定元素
+        ,format: 'yyyy-MM-dd' //可任意组合
+        ,value: new Date()
+        ,isInitValue: true //是否允许填充初始值，默认为 true
+        // ,show: true //直接显示
+    });
     /**
      * 点击查询按钮
      */
     Report.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
-        queryData['senddate'] = $("#senddate").val();
-
+        queryData['submitDate'] = $("#submitDate").val();
+        queryData['entityName'] = $("#entityName").val();
         table.reload(Report.tableId, {
             where: queryData, page: {curr: 1}
         });
@@ -93,11 +100,4 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
 
 
 
-    //执行一个laydate实例
-    laydate.render({
-        elem: '#senddate' //指定元素
-        ,format: 'yyyy-MM-dd' //可任意组合
-        // ,value: new Date().toString()
-        ,isInitValue: true //是否允许填充初始值，默认为 true
-    });
 });

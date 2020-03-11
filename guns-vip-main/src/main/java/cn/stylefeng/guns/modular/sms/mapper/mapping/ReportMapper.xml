@@ -41,6 +41,9 @@
             <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
                 and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
             </if>
+        <if test="paramCondition.submitDate != null ">
+            and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
+        </if>
         order by submitDate desc
     </select>
 
@@ -60,6 +63,9 @@
             <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
                 and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
             </if>
+            <if test="paramCondition.submitDate != null ">
+            and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
+             </if>
         order by submitDate desc
     </select>
 
@@ -79,6 +85,9 @@
             <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
                 and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
             </if>
+            <if test="paramCondition.submitDate != null ">
+                and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
+            </if>
         order by submitDate desc
     </select>
 
@@ -97,6 +106,9 @@
             </if>
             <if test="paramCondition.srcterminalid != null and paramCondition.srcterminalid != ''">
                 and srcterminalid like CONCAT('%',#{paramCondition.srcterminalid},'%')
+            </if>
+            <if test="paramCondition.submitDate != null ">
+                and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
             </if>
         order by submitDate desc
     </select>

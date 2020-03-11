@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * 回执表控制器
@@ -124,11 +127,22 @@ public class ReportController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(@RequestParam(required = false) String condition, @RequestParam(required = false) String senddate,ReportParam reportParam) {
+    public LayuiPageInfo list(@RequestParam(required = false) String condition,
+                              @RequestParam(required = false) String submitDate,
+                              @RequestParam(required = false) String entityName ,
+                              ReportParam reportParam) {
         if(StringUtils.isNotEmpty(condition))
             reportParam.setSrcterminalid(condition);
-        if(StringUtils.isNotEmpty(senddate))
-            reportParam.setSubmitDate(DateUtil.parseDate(senddate));
+        if(StringUtils.isNotEmpty(entityName))
+            reportParam.setEntityName(entityName);
+//        if(StringUtils.isNotEmpty(submitDate)) {
+//            reportParam.setSubmitDate(DateUtil.parse(submitDate, "yyyy-MM-dd"));
+//        }else
+//        {
+//            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+//            String dateStr=sdf.format(new Date());
+//            reportParam.setSubmitDate(DateUtil.parse(dateStr, "yyyy-MM-dd"));
+//        }
         if(!ShiroKit.isAdmin())
             reportParam.setEntityName(ShiroKit.getUser().getAccount());
         return this.reportService.findPageBySpec(reportParam);

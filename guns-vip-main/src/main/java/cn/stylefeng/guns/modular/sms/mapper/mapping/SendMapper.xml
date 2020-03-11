@@ -51,8 +51,8 @@
             <if test="paramCondition.entityid != null and paramCondition.entityid != ''">
                 and entityid like CONCAT('%',#{paramCondition.entityid},'%')
             </if>
-        <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
-            and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
+        <if test="paramCondition.submitDate != null">
+            and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
         </if>
         order by submitDate desc
     </select>
@@ -76,8 +76,8 @@
             <if test="paramCondition.entityid != null and paramCondition.entityid != ''">
                 and entityid like CONCAT('%',#{paramCondition.entityid},'%')
             </if>
-        <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
-            and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
+        <if test="paramCondition.submitDate != null">
+            and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
         </if>
         order by submitDate desc
     </select>
@@ -101,8 +101,8 @@
             <if test="paramCondition.entityid != null and paramCondition.entityid != ''">
                 and entityid like CONCAT('%',#{paramCondition.entityid},'%')
             </if>
-        <if test="paramCondition.senddate != null and paramCondition.senddate != ''">
-            and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
+        <if test="paramCondition.submitDate != null">
+            and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
         </if>
         order by submitDate desc
     </select>
@@ -126,9 +126,9 @@
             <if test="paramCondition.entityid != null and paramCondition.entityid != ''">
                 and entityid like CONCAT('%',#{paramCondition.entityid},'%')
             </if>
-        <if test="paramCondition.senddate != null and paramCondition.senddate != ''">
-            and (submitDate between CONCAT(#{senddate},' 00:00:00') and CONCAT(#{senddate},' 23:59:59'))
-        </if>
+            <if test="paramCondition.submitDate != null">
+                and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
+            </if>
         order by submitDate desc
     </select>
 </mapper>

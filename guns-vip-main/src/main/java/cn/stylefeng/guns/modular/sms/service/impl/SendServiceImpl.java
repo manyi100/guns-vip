@@ -79,50 +79,6 @@ public class SendServiceImpl extends ServiceImpl<SendMapper, Send> implements Se
         return LayuiPageFactory.createPageInfo(page);
     }
 
-    @Override
-    public int getDayCount(String userid) {
-        QueryWrapper<Send> queryWrapper=new QueryWrapper<>();
-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
-        String dateStr=sdf.format(new Date());
-        if(StringUtils.isNotEmpty(userid)) {
-            queryWrapper.eq("date_format(submitDate,'%Y-%m-%d')", dateStr).eq("entityName", userid);
-        }else
-        {
-            queryWrapper.eq("date_format(submitDate,'%Y-%m-%d')", dateStr);
-        }
-        queryWrapper.groupBy("date_format(submitDate,'%Y-%m-%d')");
-        return this.count(queryWrapper);
-    }
-
-    @Override
-    public int getMonthCount(String userid) {
-        QueryWrapper<Send> queryWrapper=new QueryWrapper<>();
-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM");
-        String dateStr=sdf.format(new Date());
-        if(StringUtils.isNotEmpty(userid)) {
-            queryWrapper.eq("date_format(submitDate,'%Y-%m')",dateStr).eq("entityName",userid);
-        }else
-        {
-            queryWrapper.eq("date_format(submitDate,'%Y-%m')",dateStr);
-        }
-        queryWrapper.groupBy("date_format(submitDate,'%Y-%m')");
-        return this.count(queryWrapper);
-    }
-    public List<Map<String, Object>> getThisMonth(String userid) {
-        DateTime now = DateTime.now();
-        DateTime startdt=now.offsetNew(DateField.DAY_OF_MONTH,-30);
-        QueryWrapper<Send> queryWrapper=new QueryWrapper<>();
-        queryWrapper.select("date_format(submitDate,'%Y-%m-%d') as submitDate","count(1) as cnt");
-        queryWrapper.between("submitDate",startdt.toString("yyyy-MM-dd 00:00:00"),now.toString("yyyy-MM-dd 23:59:59"));
-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM");
-        String dateStr=sdf.format(new Date());
-        if(StringUtils.isNotEmpty(userid)) {
-            queryWrapper.eq("entityName",userid);
-        }
-        queryWrapper.groupBy("date_format(submitDate,'%Y-%m-%d')");
-        queryWrapper.last(" limit 30");
-        return this.listMaps(queryWrapper);
-    }
     private Serializable getKey(SendParam param){
         return param.getTaskId();
     }
