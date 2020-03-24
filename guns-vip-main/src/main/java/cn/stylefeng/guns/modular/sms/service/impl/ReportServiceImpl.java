@@ -7,6 +7,7 @@ import cn.stylefeng.guns.modular.sms.mapper.ReportMapper;
 import cn.stylefeng.guns.modular.sms.model.params.ReportParam;
 import cn.stylefeng.guns.modular.sms.model.result.ReportResult;
 import  cn.stylefeng.guns.modular.sms.service.ReportService;
+import cn.stylefeng.roses.core.mutidatasource.annotion.DataSource;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -47,16 +48,19 @@ public class ReportServiceImpl extends ServiceImpl<ReportMapper, Report> impleme
     }
 
     @Override
+    @DataSource(name="slave")
     public ReportResult findBySpec(ReportParam param){
         return null;
     }
 
     @Override
+    @DataSource(name="slave")
     public List<ReportResult> findListBySpec(ReportParam param){
         return null;
     }
 
     @Override
+    @DataSource(name="slave")
     public LayuiPageInfo findPageBySpec(ReportParam param){
         Page pageContext = getPageContext();
         IPage page = this.baseMapper.customPageList(pageContext, param);

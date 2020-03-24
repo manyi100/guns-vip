@@ -187,13 +187,12 @@ public class SendController extends BaseController {
         if(StringUtils.isNotEmpty(entityName))
             sendParam.setEntityName(entityName);
 //        sendParam.setEntityName("3331");
-//        if(StringUtils.isNotEmpty(submitDate)) {
-//            sendParam.setSubmitDate(DateUtil.parse(submitDate, "yyyy-MM-dd"));
-//        }else
+//        if(StringUtils.isEmpty(submitDate))
 //        {
 //            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 //            String dateStr=sdf.format(new Date());
-//            sendParam.setSubmitDate(DateUtil.parse(dateStr, "yyyy-MM-dd"));
+////            sendParam.setSubmitDate(DateUtil.parse(dateStr, "yyyy-MM-dd"));
+//            submitDate=dateStr;
 //        }
         if(!ShiroKit.isAdmin())
             sendParam.setEntityName(ShiroKit.getUser().getAccount());

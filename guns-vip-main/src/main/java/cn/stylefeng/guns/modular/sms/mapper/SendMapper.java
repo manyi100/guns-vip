@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.sms.mapper;
 import cn.stylefeng.guns.modular.sms.entity.Send;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.model.result.SendResult;
+import cn.stylefeng.roses.core.mutidatasource.annotion.DataSource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;

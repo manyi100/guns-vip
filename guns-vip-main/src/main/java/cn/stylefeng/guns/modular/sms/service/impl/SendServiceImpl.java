@@ -10,6 +10,7 @@ import cn.stylefeng.guns.modular.sms.mapper.SendMapper;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.model.result.SendResult;
 import  cn.stylefeng.guns.modular.sms.service.SendService;
+import cn.stylefeng.roses.core.mutidatasource.annotion.DataSource;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -63,16 +64,19 @@ public class SendServiceImpl extends ServiceImpl<SendMapper, Send> implements Se
     }
 
     @Override
+    @DataSource(name="slave")
     public SendResult findBySpec(SendParam param){
         return null;
     }
 
     @Override
+    @DataSource(name="slave")
     public List<SendResult> findListBySpec(SendParam param){
         return null;
     }
 
     @Override
+    @DataSource(name="slave")
     public LayuiPageInfo findPageBySpec(SendParam param){
         Page pageContext = getPageContext();
         IPage page = this.baseMapper.customPageList(pageContext, param);
