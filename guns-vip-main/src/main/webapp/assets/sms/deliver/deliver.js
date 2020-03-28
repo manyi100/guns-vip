@@ -1,8 +1,9 @@
-layui.use(['table', 'admin', 'ax'], function () {
+layui.use(['table', 'admin', 'ax','laydate'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
+    var laydate = layui.laydate;
 
     /**
      * 短信接收表管理
@@ -29,8 +30,10 @@ layui.use(['table', 'admin', 'ax'], function () {
                 field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
                     if (d.status === 0) {
                         return "未发送";
-                    } else {
+                    }else if (d.status === 1){
                         return "己发送";
+                    }else if (d.status === 2){
+                        return "发送失败";
                     }
                 }
             },
@@ -38,13 +41,23 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'dealDate', sort: true, title: '处理时间'}
         ]];
     };
-
+//执行一个laydate实例
+    laydate.render({
+        elem: '#submitDate' //指定元素
+        ,format: 'yyyy-MM-dd' //可任意组合
+        ,value: new Date()
+        ,isInitValue: true //是否允许填充初始值，默认为 true
+        // ,show: true //直接显示
+    });
     /**
      * 点击查询按钮
      */
     Deliver.search = function () {
         var queryData = {};
-        queryData['condition'] = $("#condition").val();
+        // queryData['condition'] = $("#condition").val();
+        queryData['srctterminalId'] = $("#srctterminalId").val();
+        queryData['submitDate'] = $("#submitDate").val();
+        queryData['entityName'] = $("#entityName").val();
         table.reload(Deliver.tableId, {
             where: queryData, page: {curr: 1}
         });
@@ -70,6 +83,7 @@ layui.use(['table', 'admin', 'ax'], function () {
     var tableResult = table.render({
         elem: '#' + Deliver.tableId,
         url: Feng.ctxPath + '/deliver/list',
+        where:{"submitDate":Feng.currentDate},
         page: true,
         height: "full-158",
         cellMinWidth: 100,

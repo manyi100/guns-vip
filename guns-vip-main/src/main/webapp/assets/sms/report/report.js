@@ -33,8 +33,10 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
                 field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
                     if (d.status === 0) {
                         return "未发送";
-                    } else {
+                    } else if (d.status === 1){
                         return "己发送";
+                    }else if (d.status === 2){
+                        return "发送失败";
                     }
                 }
             },
@@ -58,6 +60,7 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
         queryData['condition'] = $("#condition").val();
         queryData['submitDate'] = $("#submitDate").val();
         queryData['entityName'] = $("#entityName").val();
+        queryData['stat'] = $("#stat").val();
         table.reload(Report.tableId, {
             where: queryData, page: {curr: 1}
         });
@@ -81,6 +84,7 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
     var tableResult = table.render({
         elem: '#' + Report.tableId,
         url: Feng.ctxPath + '/report/list',
+        where:{"submitDate":Feng.currentDate},
         page: true,
         height: "full-158",
         cellMinWidth: 100,

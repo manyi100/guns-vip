@@ -41,9 +41,9 @@
             <if test="paramCondition.status != null and paramCondition.status != ''">
                 and status like CONCAT('%',#{paramCondition.status},'%')
             </if>
-            <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
-                and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
-            </if>
+        <if test="paramCondition.submitDate != null">
+            and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
+        </if>
         order by submitDate desc
     </select>
 
@@ -66,9 +66,9 @@
             <if test="paramCondition.status != null and paramCondition.status != ''">
                 and status like CONCAT('%',#{paramCondition.status},'%')
             </if>
-            <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
-                and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
-            </if>
+        <if test="paramCondition.submitDate != null">
+            and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
+        </if>
         order by submitDate desc
     </select>
 
@@ -91,8 +91,8 @@
             <if test="paramCondition.status != null and paramCondition.status != ''">
                 and status like CONCAT('%',#{paramCondition.status},'%')
             </if>
-            <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
-                and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
+            <if test="paramCondition.submitDate != null">
+                and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
             </if>
         order by submitDate desc
     </select>
@@ -116,9 +116,9 @@
             <if test="paramCondition.status != null and paramCondition.status != ''">
                 and status like CONCAT('%',#{paramCondition.status},'%')
             </if>
-            <if test="paramCondition.submitDate != null and paramCondition.submitDate != ''">
-                and submitDate like CONCAT('%',#{paramCondition.submitDate},'%')
-            </if>
+        <if test="paramCondition.submitDate != null">
+            and (submitDate between #{paramCondition.submitDate} and date_format(#{paramCondition.submitDate},'%Y-%m-%d 23:59:59'))
+        </if>
         order by submitDate desc
     </select>
 
