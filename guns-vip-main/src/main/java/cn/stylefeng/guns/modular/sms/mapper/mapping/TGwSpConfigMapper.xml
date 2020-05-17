@@ -47,7 +47,7 @@
         <if test="condition != null and condition != ''">
             where spnumBody like CONCAT('%',#{condition},'%') or spnum like CONCAT('%',#{condition},'%')
         </if>
-        order by submitdate DESC
+        order by spnumId,submitDate desc
     </select>
 
     <select id="customList" resultType="cn.stylefeng.guns.modular.sms.model.result.TGwSpConfigResult" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
@@ -63,7 +63,7 @@
             <if test="paramCondition.spnum != null and paramCondition.spnum != ''">
                 and spnum like CONCAT('%',#{paramCondition.spnum},'%')
             </if>
-        order by submitDate,spnumId desc
+        order by spnumId,submitDate desc
     </select>
 
     <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam">
@@ -82,7 +82,7 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
-        order by submitDate,spnumId desc
+        order by spnumId,submitDate desc
 
     </select>
 
@@ -102,7 +102,7 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
-        order by submitDate,spnumId desc
+        order by spnumId,submitDate desc
 
     </select>
 
@@ -122,7 +122,7 @@
             <if test="paramCondition.spnumBody != null and paramCondition.spnumBody != ''">
                 and spnumBody like CONCAT('%',#{paramCondition.spnumBody},'%')
             </if>
-        order by submitDate,spnumId desc
+        order by spnumId,submitDate desc
 
     </select>
 

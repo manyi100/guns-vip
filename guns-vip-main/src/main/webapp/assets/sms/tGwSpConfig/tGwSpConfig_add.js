@@ -1,31 +1,7 @@
 /**
  * 添加或者修改页面
  */
-function  randomPassword(size){//size是生成随机密码的位数
 
-    var seed=new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z',
-
-        'a','b','c','d','e','f','g','h','i','j','k','m','n','p','Q','r','s','t','u','v','w','x','y','z','0','1',
-
-        '2','3','4','5','6','7','8','9'
-
-    );//数组
-
-    var seedlength=seed.length;//数组长度
-
-    var createPassword='';
-
-    for(var i=0;i<size;i++){
-
-        var a=Math.floor(Math.random()*seedlength);
-
-        createPassword+=seed[a];
-
-    }
-
-    return createPassword;
-
-}
 var TGwSpConfigInfoDlg = {
     data: {
         protocolId: "",
@@ -35,7 +11,7 @@ var TGwSpConfigInfoDlg = {
         spnumPort: "",
         spnum: "",
         spnumBody: "",
-        spnumPass: randomPassword(8),
+        spnumPass: "",
         sendSpeed: "",
         balance: "",
         price: "",
@@ -67,8 +43,46 @@ layui.use(['form', 'admin', 'ax'], function () {
     //让当前iframe弹层高度适应
     admin.iframeAuto();
 
+    //生成8位随机密码
+    $("#randomPassButton").click(function () {
+        var randompassword=Feng.randompassword(8);
+        $("#spnumPass").val(randompassword);
+    });
+
+    //通道类型(仅服务端使用)
+    form.on('checkbox(channeltype)', function(data){
+        //将页面全部复选框选中的值拼接到一个数组中
+        var arr_box = [];
+        $('input[type=checkbox]:checked').each(function() {
+            arr_box.push($(this).val());
+        });
+        //数组
+        console.log(arr_box)
+
+        channeltype=arr_box.join("");
+        console.log("type:"+channeltype)
+        $("#entId").val(channeltype);
+    });
+
+
+    form.on('select(entmsnUse)', function(data){
+        if(data.value=='0')//服务端
+        {
+            console.log("服务端")
+            $("#serverpanel").removeAttr("style");
+            $("#entId").attr("lay-verify","required");
+
+        }else if (data.value=='1')//客户端
+        {
+            $("#serverpanel").attr("style","display: none");
+            $("#entId").removeAttr("lay-verify");
+            $("#entId").val("1");
+        }
+    });
+
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {
+
         var ajax = new $ax(Feng.ctxPath + "/tGwSpConfig/addItem", function (data) {
             Feng.success("添加成功！");
             window.location.href = Feng.ctxPath + '/tGwSpConfig'
@@ -85,13 +99,5 @@ layui.use(['form', 'admin', 'ax'], function () {
     $("#backupPage").click(function () {
         window.location.href = Feng.ctxPath + '/tGwSpConfig'
     });
-
-    form.on('select(protocolId)', function(data){
-        console.log(data.elem); //得到select原始DOM对象
-        console.log(data.value); //得到被选中的值]
-        $("#protocolId").val(data.value)//赋值
-        console.log(data.othis); //得到美化后的DOM对象
-    });
-
 
 });

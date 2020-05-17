@@ -12,7 +12,9 @@ import cn.stylefeng.guns.modular.demos.entity.BlockItem;
 import cn.stylefeng.guns.modular.demos.entity.ExcelItem;
 import cn.stylefeng.guns.modular.sms.entity.Block;
 import cn.stylefeng.guns.modular.sms.entity.Contacts;
+import cn.stylefeng.guns.modular.sms.entity.Send;
 import cn.stylefeng.guns.modular.sms.model.params.ContactsParam;
+import cn.stylefeng.guns.modular.sms.model.params.SendParam;
 import cn.stylefeng.guns.modular.sms.service.BlockService;
 import cn.stylefeng.guns.modular.sms.service.ContactsService;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
@@ -22,6 +24,7 @@ import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.zx.sms.common.util.MsgId;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,10 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * excel导入导出示例
@@ -179,12 +179,11 @@ public class ExcelController {
                 params.setHeadRows(1);
                 List<BlockItem> result = ExcelImportUtil.importExcel(file, pojoClass, params);
                 Block block=null;
-                List<Block> blocks=new ArrayList<>();
                 for (BlockItem blockItem : result) {
                     block=new Block();
                     block.setBlockmobile(blockItem.getBlockmobile());
-                    block.setBlocktype(blockItem.getBlocktype());
-                    block.setEntid(blockItem.getEntid());
+                    block.setBlocktype(0);
+                    block.setEntid(0);
 //                    blocks.add(block);
                     blockService.save(block);
                 }
@@ -202,7 +201,7 @@ public class ExcelController {
     }
 
     /**
-     * 上传黑名单--获取上传成功的数据
+     * 上传联系人--获取上传成功的数据
      */
     @RequestMapping("/getUploadContactsData")
     @Transactional(rollbackFor = Exception.class, timeout = 600)
@@ -236,6 +235,35 @@ public class ExcelController {
                 returns.setCount(result.size());
                 returns.setData(result);
                 return returns;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 上传个性化发送--获取上传成功的数据
+     */
+    @RequestMapping("/getUploadSendData")
+    @Transactional(rollbackFor = Exception.class, timeout = 6000)
+    @ResponseBody
+    public Object getUploadSendData(HttpServletRequest request) {
+        return  this.getSendupolad(request, Send.class);
+    }
+    private Object getSendupolad(HttpServletRequest request,Class<?> pojoClass)
+    {
+        String name = (String) request.getSession().getAttribute("upFile");
+        String fileSavePath = gunsProperties.getFileUploadPath();
+        if (name != null) {
+            File file = new File(fileSavePath + name);
+            try {
+                ImportParams params = new ImportParams();
+//                params.setTitleRows(1);
+                params.setHeadRows(1);
+                List<Send> result = ExcelImportUtil.importExcel(file, pojoClass, params);
+                name=null;//清空上传数据
+                return result;
             } catch (Exception e) {
                 e.printStackTrace();
             }

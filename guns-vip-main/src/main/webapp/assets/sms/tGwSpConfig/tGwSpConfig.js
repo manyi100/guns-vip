@@ -19,6 +19,15 @@ layui.use(['table', 'admin', 'ax'], function () {
             {type: 'checkbox'},
             {field: 'spnumId', hide: false, title: 'spnumId'},
             {
+                field: 'entmsnUse', sort: true, title: '用途', templet: function (d) {
+                    if (d.entmsnUse == 0) {
+                        return "服务端";
+                    } else {
+                        return "客户端";
+                    }
+                }
+            },
+            {
                 field: 'protocolId', sort: true, title: '短信协议', templet: function (d) {
                     if (d.protocolId == 1) {
                         return "SMPP";
@@ -46,7 +55,7 @@ layui.use(['table', 'admin', 'ax'], function () {
                     }
                 }
             },
-            {field: 'entId', sort: true, title: '企业ID'},
+            {field: 'entId', sort: true, title: '通道类型'},
             {field: 'spnumIp', sort: true, title: '接入号IP'},
             {field: 'spnumPort', sort: true, title: '端口号'},
             {field: 'spnum', sort: true, title: 'SP号码'},
@@ -62,19 +71,19 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'spnumBody', sort: true, title: '帐号'},
             {field: 'spnumPass', sort: true, title: '密码'},
             {field: 'sendSpeed', sort: true, title: '发送速率'},
-            {field: 'balance', sort: true, title: '余额'},
-            {field: 'price', sort: true, title: '单价（分）'},
+            {field: 'balance', sort: true, title: '余额(条)'},
+            {field: 'price', sort: true, title: '单价(分)'},
             {field: 'channelNum', sort: true, title: '通道数量'},
+            // {field: 'version', sort: true, title: '版本号'},
             {
-                field: 'entmsnUse', sort: true, title: '用途', templet: function (d) {
-                    if (d.entmsnUse == 0) {
-                        return "服务端";
+                field: 'version', sort: true, title: '版本号', templet: function (d) {
+                    if (d.version == '0x20') {
+                        return "0x20";
                     } else {
-                        return "客户端";
+                        return "0x30";
                     }
                 }
             },
-            {field: 'version', sort: true, title: '版本号'},
             {
                 field: 'status', sort: true, title: '状态', templet: function (d) {
                     if (d.status == 0) {

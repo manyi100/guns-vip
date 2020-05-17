@@ -92,7 +92,7 @@ public class ContactsController extends BaseController {
         ShiroUser user = ShiroKit.getUserNotNull();
         contactsParam.setEntid(user.getDeptId());
         Integer groupid = contactsParam.getGroupid();
-        if(null==groupid ||groupid.toString().equals(""))
+        if(null==groupid ||StringUtils.isEmpty(groupid+""))
         {
             return ResponseData.error("请选择联系人分组");
 //            throw new ServiceException(CoreExceptionEnum.valueOf("请选择联系人分组"));

@@ -3,12 +3,19 @@ package cn.stylefeng.guns.modular.sms.controller;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.sms.entity.Signname;
+import cn.stylefeng.guns.modular.sms.entity.TGwSpConfig;
 import cn.stylefeng.guns.modular.sms.model.params.SignnameParam;
 import cn.stylefeng.guns.modular.sms.service.SignnameService;
+import cn.stylefeng.guns.modular.sms.service.TGwSpConfigService;
 import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +38,8 @@ public class SignnameController extends BaseController {
 
     @Autowired
     private SignnameService signnameService;
-
+    @Autowired
+    TGwSpConfigService tGwSpConfigService;
     /**
      * 跳转到主页面
      *
@@ -77,10 +85,15 @@ public class SignnameController extends BaseController {
         ShiroUser user = ShiroKit.getUser();
         if(!ShiroKit.isAdmin())
         {
-            signnameParam.setStatus(2);//2、待审核 3、驳回
+//            signnameParam.setStatus(2);//2、待审核 3、驳回
+//            String account=user.getAccount();
+//            Wrapper<TGwSpConfig> tGwSpConfigWrapper = new QueryWrapper<>();
+//            tGwSpConfigWrapper.getEntity().setSpnumBody(account);
+//            TGwSpConfig one = tGwSpConfigService.getOne(tGwSpConfigWrapper);
+//            signnameParam.setEntid(one.getSpnumId());
+            throw new ServiceException(BizExceptionEnum.NO_PERMITION);
         }
-        Long deptId = user.getDeptId();
-        signnameParam.setEntid(deptId);
+
         this.signnameService.add(signnameParam);
         return ResponseData.success();
     }

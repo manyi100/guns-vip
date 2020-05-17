@@ -19,7 +19,7 @@ layui.use(['table', 'admin', 'ax'], function () {
             {type: 'checkbox'},
             {field: 'signid', hide: true, title: '主键ID'},
             {field: 'signname', sort: true, title: '签名'},
-            {field: 'entid', sort: true, title: '企业ID'},
+            {field: 'entid', sort: true, title: 'spnumid'},
             // {field: 'signtype', sort: true, title: '签名类型'},
             {
                 field: 'signtype', align: "center", sort: true, title: '签名类型', templet: function (d) {

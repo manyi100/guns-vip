@@ -1,23 +1,18 @@
 package cn.stylefeng.guns.modular.sms.controller;
 
-import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
+import cn.stylefeng.guns.modular.demos.controller.ExcelController;
+import cn.stylefeng.guns.modular.sms.entity.Contacts;
 import cn.stylefeng.guns.modular.sms.entity.Send;
 import cn.stylefeng.guns.modular.sms.entity.TGwSpConfig;
-import cn.stylefeng.guns.modular.sms.mapper.DaystatMapper;
-import cn.stylefeng.guns.modular.sms.mapper.SendMapper;
-import cn.stylefeng.guns.modular.sms.model.params.DaystatParam;
 import cn.stylefeng.guns.modular.sms.model.params.SendParam;
-import cn.stylefeng.guns.modular.sms.model.params.TGwSpConfigParam;
-import cn.stylefeng.guns.modular.sms.model.result.DaystatResult;
+import cn.stylefeng.guns.modular.sms.service.ContactsService;
 import cn.stylefeng.guns.modular.sms.service.DaystatService;
-import cn.stylefeng.guns.modular.sms.service.MonthstatService;
 import cn.stylefeng.guns.modular.sms.service.SendService;
 import cn.stylefeng.guns.modular.sms.service.TGwSpConfigService;
-import cn.stylefeng.guns.modular.sms.service.impl.DaystatServiceImpl;
-import cn.stylefeng.guns.modular.sms.service.impl.MonthstatServiceImpl;
+import cn.stylefeng.guns.modular.sms.service.impl.SendServiceImpl;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
@@ -26,19 +21,30 @@ import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zx.sms.common.util.MsgId;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.rocketmq.client.exception.MQBrokerException;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.remoting.exception.RemotingException;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.apache.rocketmq.common.message.Message;
 
-import java.text.DateFormat;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 
 /**
@@ -47,6 +53,7 @@ import java.util.Map;
  * @author yqy
  * @Date 2019-10-31 10:42:41
  */
+@EnableAsync
 @Controller
 @RequestMapping("/send")
 public class SendController extends BaseController {
@@ -60,9 +67,16 @@ public class SendController extends BaseController {
     @Autowired
     private DaystatService daystatService;
     @Autowired
-    private MonthstatService monthstatService;
+    private ContactsService contactsService;
     @Autowired
     private TGwSpConfigService tGwSpConfigService;
+    private static LinkedBlockingQueue<Send> uploadData=new LinkedBlockingQueue<>();
+
+    @Autowired
+    ExcelController excelController;
+
+    @Autowired
+    SendServiceImpl sendServiceImpl;
     /**
      * 跳转到主页面
      *
@@ -85,6 +99,11 @@ public class SendController extends BaseController {
         return PREFIX + "/send_add.html";
     }
 
+    @RequestMapping(value = "/add2")
+    public String add2() {
+        return PREFIX + "/send_add2.html";
+    }
+
     /**
      * 编辑页面
      *
@@ -104,11 +123,16 @@ public class SendController extends BaseController {
      */
     @RequestMapping("/addItem")
     @ResponseBody
-    public ResponseData addItem(SendParam sendParam) {
+    public ResponseData addItem(@RequestParam String groupid, SendParam sendParam) {
+
         String account=ShiroKit.getUser().getAccount();
         String phonesStr=sendParam.getDestterminalId();
+        String content=sendParam.getContent().trim();
+        String entid="";
         String line=System.getProperty("line.separator");
-        String[] phones=phonesStr.split(line);
+        String[] phones=new String[0];
+        if(StringUtils.isNotEmpty(phonesStr))
+            phones=phonesStr.split(line);
         String spnum="";
         if(ShiroKit.isAdmin())
         {
@@ -118,16 +142,59 @@ public class SendController extends BaseController {
         {
             QueryWrapper<TGwSpConfig> queryWrapper=new QueryWrapper<>();
             queryWrapper.eq("spnumbody",account);
-            spnum=tGwSpConfigService.getOne(queryWrapper).getSpnum();
+            TGwSpConfig spconfig = tGwSpConfigService.getOne(queryWrapper);
+            spnum= spconfig.getSpnum();
         }
-        for (int i = 0; i <phones.length ; i++) {
-            sendParam.setDestterminalId(phones[i]);
-            sendParam.setEntityName(account);
-            sendParam.setSrcId(spnum);
-            sendParam.setMsgsrc(account);
-            sendParam.setSubmitDate(new Date());
-            this.sendService.add(sendParam);
+
+        //少量发送
+        Send signsend=null;
+        if(StringUtils.isNotEmpty(phonesStr)&&StringUtils.isNotEmpty(content)) {
+            for (String phone:phones) {
+                signsend = new Send();
+                signsend.setDestterminalId(phone.trim());
+                signsend.setContent(content);
+                uploadData.add(signsend);
+            }
         }
+        //通讯录发送
+        if(StringUtils.isNotEmpty(groupid))
+        {
+            entid= String.valueOf(ShiroKit.getUser().getDeptId());
+            QueryWrapper<Contacts> queryWrapper=new QueryWrapper<>();
+            queryWrapper.eq("groupid",groupid);
+            queryWrapper.eq("entid",entid);
+            List<Contacts> contactslist = contactsService.list(queryWrapper);
+            for (Contacts contacts : contactslist) {
+                Send send=new Send();
+                send.setDestterminalId(contacts.getMobile().trim());
+                send.setContent(content);
+                uploadData.add(send);
+            }
+            contactslist.clear();
+        }
+        //上传文件发送
+        HttpServletRequest httpServletRequest = getHttpServletRequest();
+        ArrayList<Send> batchData = (ArrayList) excelController.getUploadSendData(httpServletRequest);
+        if(batchData!=null)
+        {
+            Send send = batchData.get(0);
+            if(StringUtils.isEmpty(send.getContent()))
+            {
+                for (Send batchDatum : batchData) {
+                    batchDatum.setContent(content);
+                    uploadData.add(batchDatum);
+                }
+                batchData.clear();
+            }
+            uploadData.addAll(batchData);
+            batchData.clear();
+            httpServletRequest.getSession().setAttribute("upFile",null);
+        }
+        if(uploadData.isEmpty()){
+            return ResponseData.error("请填写发送号码或上传文件。");
+        }
+        //异步提交到MQ对列
+        sendServiceImpl.AsyncBacthSend(uploadData,account,spnum);
         return ResponseData.success();
     }
 
@@ -297,6 +364,7 @@ public class SendController extends BaseController {
         }
         return new SuccessResponseData(nowcnt);
     }
+
 }
 
 

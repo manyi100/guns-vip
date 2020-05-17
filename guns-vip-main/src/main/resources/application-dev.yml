@@ -29,7 +29,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3308/guns_vip?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    url: jdbc:mysql://127.0.0.1:33065/guns_vip?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
     username: root
     password: 123456
     filters: wall,mergeStat
@@ -44,3 +44,5 @@ spring:
 # 邮件发送（改为自己的账号）
 mail:
   from: sn93@qq.com
+
+

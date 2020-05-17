@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.sms.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class Send implements Serializable {
      * 内容
      */
     @TableField("content")
+    @Excel(name = "发送内容（必填）")
     private String content;
 
     /**
@@ -42,6 +44,7 @@ public class Send implements Serializable {
      * 目的号码
      */
     @TableField("destterminalId")
+    @Excel(name = "目的号码（必填）")
     private String destterminalId;
 
     /**

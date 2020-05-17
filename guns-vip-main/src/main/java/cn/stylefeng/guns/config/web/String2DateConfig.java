@@ -9,6 +9,7 @@ import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -41,5 +42,10 @@ public class String2DateConfig {
             return DateUtil.parse(dateString);
         }
     }
-
+    public class StringToLocalDateTimeConverter implements Converter<String, LocalDateTime> {
+        @Override
+        public LocalDateTime convert(String dateString) {
+            return LocalDateTime.parse(dateString);
+        }
+    }
 }

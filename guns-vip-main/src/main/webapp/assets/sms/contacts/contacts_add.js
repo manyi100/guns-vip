@@ -51,7 +51,7 @@ layui.use(['form', 'admin', 'ax','upload'], function () {
     form.on('submit(btnSubmit)', function (data) {
 
         if (!$("#groupid").val()) {
-            Feng.error("请选择具体字典！");
+            Feng.error("请选择具体联系人分组！");
             return false;
         }
         var ajax = new $ax(Feng.ctxPath + "/contacts/addItem", function (data) {

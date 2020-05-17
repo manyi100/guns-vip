@@ -23,48 +23,81 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">输入号码:<span style="color: red;">*</span></label>
                                     <div class="layui-input-block">
-                                        <textarea id="destterminalId" name="destterminalId" placeholder="请输入目的号码" type="text" class="layui-textarea" lay-verify="required" required></textarea>
+                                        <textarea id="destterminalId" name="destterminalId" placeholder="请输入目的号码" type="text" class="layui-textarea" lay-verify="required"></textarea>
                                     </div>
-                                    <label class="layui-input-block">一行一个号码，回车切换下一行，每次最多能提交100个号码。</label>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">编辑内容：<span style="color: red;">*</span></label>
                                     <div class="layui-input-block">
-                                        <textarea id="content" name="content" placeholder="请输入内容" type="text" class="layui-textarea" lay-verify="required" required></textarea>
+                                    <label class="layui-show-xs-inline-block">一行一个号码，回车切换下一行，每次最多能提交10000个号码，超过请使用文件上传。</label>
                                     </div>
-                                    <label class="layui-input-block">*提示：发送内容为[ 0 ]字 | 发送条数为[ 1 ]条 | 每条短信按照[70,67]个字计费
-                                    </label>
                                 </div>
                             </div>
                         </div>
-                    <div class="layui-tab-item">内容2</div>
-                    <div class="layui-tab-item">内容3</div>
                     <div class="layui-tab-item">
-                        <div id="batchSend">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">选择文件(20MB):
-                                    .xls .xlsx:<span style="color: red;">*</span></label>
-                                <div class="layui-input-block">
-                                </div>
-                                <button id="btnImp" class="layui-btn icon-btn">
-                                    <i class="layui-icon">&#xe67c;</i>导入发送清单
-                                </button>
+                        <div class="layui-form-item" id="batchNumberSend">
+                            <label class="layui-form-label">选择文件(20MB):
+                                .xls .xlsx:<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">个性短信模板：</label>
-                                <div class="layui-input-block">
-                                    <a href="/customer/PersonalitySms (1).xls.xls">下载</a>
-                                </div>
+                            <button id="btnImp1" class="layui-btn icon-btn" type="button">
+                                <i class="layui-icon">&#xe67c;</i>导入发送清单
+                            </button>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">短信模板：</label>
+                            <div class="layui-input-block">
+                                <a href="${ctxPath}/assets/sms/template/phonesPersonalitySms.xlsx">下载</a>
                             </div>
-
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">通讯录<span style="color: red;">*</span></label>
+                            <div class="layui-input-inline">
+                                <select name="groupid" id="groupid" lay-filter="groupid">
+                                    <option value="">请选择联系人分组</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item" id="batchSend">
+                            <label class="layui-form-label">选择文件(20MB):
+                                .xls .xlsx:<span style="color: red;">*</span></label>
+                            <div class="layui-input-block">
+                            </div>
+                            <button id="btnImp" class="layui-btn icon-btn" type="button">
+                                <i class="layui-icon">&#xe67c;</i>导入发送清单
+                            </button>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">短信模板：</label>
+                            <div class="layui-input-block">
+                                <a href="${ctxPath}/assets/sms/template/personalitySms.xlsx">下载</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 </div>
+                <div class="layui-form-item" id="contentID">
+                    <label class="layui-form-label">编辑内容：<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                                        <textarea id="content" name="content" placeholder="请输入内容" type="text" class="layui-textarea" lay-verify="required" maxlength="134"
+                                                  oninput="wordLeg(this);" onpropertychange="if(value.length>134) value=value.substr(0,134)"></textarea>
+                    </div>
+                    <div class="layui-input-block">
+                        <label class="layui-show-xs-inline-block">*提示：发送内容为[ <span class="text_count" style="color: red;">0</span> ]字 | 发送条数为[ <span class="count" style="color: red;">0</span> ]条 | 每条短信按照[70,67]个字计费</label>
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">发送时间：</label>
-                    <div class="layui-input-block">
-                        <input id="submitDate" name="submitDate" placeholder="请输入发送时间" type="text" class="layui-input"/>
+                    <div class="layui-input-inline">
+                        <select id="selectsubmitDate" name="selectsubmitDate" lay-filter="selectsubmitDate" lay-verify="required" required>
+                            <option value="">发送时间</option>
+                            <option value="0" selected>立即发送</option>
+                            <option value="1" >定时发送</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <input id="submitDate" name="submitDate" placeholder="请输入发送时间" type="text" class="layui-input" style="display: none"/>
                     </div>
                 </div>
                 <div class="layui-form-item">
