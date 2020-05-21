@@ -31,13 +31,13 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
             // {field: 'spid', sort: true, title: '运营商ID'},
             {
                 field: 'spid', align: "center", sort: true, title: '运营商', templet: function (d) {
-                    if (d.spid === 1) {
+                    if (d.spid == 1) {
                         return "中国电信";
-                    } else if (d.spid === 2){
+                    } else if (d.spid == 2){
                         return "中国网通";
-                    }else if (d.spid === 3){
+                    }else if (d.spid == 3){
                         return "中国移动";
-                    }else if (d.spid === 4){
+                    }else if (d.spid == 4){
                         return "中国联通";
                     }else {
                         return "未知";
@@ -50,11 +50,11 @@ layui.use(['table', 'admin', 'ax','laydate'], function () {
             // {field: 'status', sort: true, title: '状态 0 未发送，己发送'},
             {
                 field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
-                    if (d.status === 0) {
+                    if (d.status == 0) {
                         return "未发送";
-                    } else if (d.status === 1){
+                    } else if (d.status == 1){
                         return "己发送";
-                    }else if (d.status === 2){
+                    }else if (d.status == 2){
                         return "发送失败";
                     }
                 }

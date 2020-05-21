@@ -9,6 +9,7 @@ import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
 import cn.afterturn.easypoi.view.PoiBaseView;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.demos.entity.BlockItem;
+import cn.stylefeng.guns.modular.demos.entity.ContactsItem;
 import cn.stylefeng.guns.modular.demos.entity.ExcelItem;
 import cn.stylefeng.guns.modular.sms.entity.Block;
 import cn.stylefeng.guns.modular.sms.entity.Contacts;
@@ -24,6 +25,7 @@ import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.zx.sms.common.util.MsgId;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -180,12 +182,16 @@ public class ExcelController {
                 List<BlockItem> result = ExcelImportUtil.importExcel(file, pojoClass, params);
                 Block block=null;
                 for (BlockItem blockItem : result) {
-                    block=new Block();
-                    block.setBlockmobile(blockItem.getBlockmobile());
-                    block.setBlocktype(0);
-                    block.setEntid(0);
-//                    blocks.add(block);
-                    blockService.save(block);
+                    String blockmobile = blockItem.getBlockmobile();
+
+                    if(StringUtils.isNotEmpty(blockmobile)) {
+                        block=new Block();
+                        block.setBlockmobile(blockmobile);
+                        block.setBlocktype(blockItem.getBlocktype());
+                        block.setEntid(0);
+                        block.setRemark(blockItem.getRemark());
+                        blockService.save(block);
+                    }
                 }
 //                boolean flag= blockService.saveBatch(blocks);
 //                return flag==true ? ResponseData.success(0, "上传成功",null):ResponseData.error(0, "上传失败");
@@ -207,7 +213,7 @@ public class ExcelController {
     @Transactional(rollbackFor = Exception.class, timeout = 600)
     @ResponseBody
     public Object getUploadContactsData(HttpServletRequest request) {
-        return  this.getContactsupolad(request, Contacts.class);
+        return  this.getContactsupolad(request, ContactsItem.class);
     }
     private Object getContactsupolad(HttpServletRequest request,Class<?> pojoClass)
     {
@@ -219,15 +225,21 @@ public class ExcelController {
                 ImportParams params = new ImportParams();
 //                params.setTitleRows(1);
                 params.setHeadRows(1);
-                List<Contacts> result = ExcelImportUtil.importExcel(file, pojoClass, params);
-                ContactsParam cp=null;
+                List<ContactsItem> result = ExcelImportUtil.importExcel(file, pojoClass, params);
+                Contacts cp=null;
                 Long deptId = ShiroKit.getUser().getDeptId();
-                for (Contacts contact : result) {
-                    cp=new ContactsParam();
+                for (ContactsItem contact : result) {
+                    cp=new Contacts();
                     cp.setMobile(contact.getMobile());
                     cp.setEntid(deptId);
-                    cp.setContactsid(1L);
-                    contactsService.add(cp);
+                    cp.setContactsname(contact.getContactsname());
+                    cp.setAddress(contact.getAddress());
+                    cp.setEmail(contact.getEmail());
+                    cp.setQq(contact.getQq());
+                    cp.setSex(contact.getSex());
+                    cp.setGroupid(contact.getGroupid());
+                    cp.setRemark(contact.getRemark());
+                    contactsService.save(cp);
                 }
 //                boolean flag= blockService.saveBatch(blocks);
 //                return flag==true ? ResponseData.success(0, "上传成功",null):ResponseData.error(0, "上传失败");

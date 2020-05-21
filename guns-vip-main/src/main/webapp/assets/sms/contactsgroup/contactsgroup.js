@@ -17,9 +17,9 @@ layui.use(['table', 'admin', 'ax'], function () {
     Contactsgroup.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'groupid', hide: true, title: '分组ID'},
+            {field: 'groupid', hide: false, title: '分组ID'},
             {field: 'groupname', sort: true, title: '联系人组名'},
-            {field: 'orderid', sort: true, title: '序列 '},
+            {field: 'orderid', hide: true, sort: true, title: '序列 '},
             {field: 'remark', sort: true, title: '备注'},
             {field: 'adddate', sort: true, title: '添加时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}

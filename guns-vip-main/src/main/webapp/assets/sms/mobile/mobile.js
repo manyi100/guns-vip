@@ -22,7 +22,22 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'mobile', sort: true, title: '号段'},
             {field: 'province', sort: true, title: '省份'},
             {field: 'city', sort: true, title: '城市'},
-            {field: 'corp', sort: true, title: '运营商'},
+            // {field: 'corp', sort: true, title: '运营商'},
+            {
+                field: 'corp', align: "center", sort: true, title: '运营商', templet: function (d) {
+                    if (d.corp == 1) {
+                        return "中国电信";
+                    } else if (d.corp == 2){
+                        return "中国网通";
+                    }else if (d.corp == 3){
+                        return "中国移动";
+                    }else if (d.corp == 4){
+                        return "中国联通";
+                    }else {
+                        return "未知";
+                    }
+                }
+            },
             {field: 'areacode', sort: true, title: '区号'},
             {field: 'postcode', sort: true, title: '邮编'},
             {field: 'admincode', sort: true, title: '管理号'},

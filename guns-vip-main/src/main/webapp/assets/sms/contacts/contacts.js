@@ -131,15 +131,16 @@ layui.use(['table', 'admin', 'ax','upload'], function () {
     });
 
     //执行实例
-    // var uploadInst = upload.render({
-    //     elem: '#btnImp'
-    //     ,url: '/excel/uploadExcel'
-    //     ,accept: 'file'
-    //     , done: function (res) {
-    //         table.reload(Contacts.tableId, {url: Feng.ctxPath + "/excel/getUploadContactsData"});
-    //     }
-    //     , error: function () {
-    //         //请求异常回调
-    //     }
-    // });
+    var uploadInst = upload.render({
+        elem: '#btnImp'
+        , url: '/excel/uploadExcel'
+        ,accept: 'file'
+        , done: function (res) {
+            table.reload(Contacts.tableId, {url: Feng.ctxPath + "/excel/getUploadContactsData"});
+            Feng.success("上传成功！");
+        }
+        , error: function () {
+            //请求异常回调
+        }
+    });
 });

@@ -16,6 +16,7 @@ import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,7 +38,8 @@ public class BlockController extends BaseController {
     @Autowired
     private BlockService blockService;
 
-
+    @Autowired
+    RedisTemplate<String, String> redisTemplate;
     /**
      * 跳转到主页面
      *
@@ -81,6 +83,16 @@ public class BlockController extends BaseController {
     @ResponseBody
     public ResponseData addItem(BlockParam blockParam) {
         this.blockService.add(blockParam);
+        Integer blocktype = blockParam.getBlocktype();
+        if(blocktype==0) {
+            redisTemplate.opsForSet().add("block", blockParam.getBlockmobile());
+        }else if(blocktype==1)
+        {
+            redisTemplate.opsForSet().add("whitelist", blockParam.getBlockmobile());
+        }else
+        {
+
+        }
         return ResponseData.success();
     }
 
@@ -107,6 +119,13 @@ public class BlockController extends BaseController {
     @ResponseBody
     public ResponseData delete(BlockParam blockParam) {
         this.blockService.delete(blockParam);
+        Integer blocktype = blockParam.getBlocktype();
+        if(blocktype==0) {
+            redisTemplate.opsForSet().remove("block", blockParam.getBlockmobile());
+        }else if(blocktype==1)
+        {
+            redisTemplate.opsForSet().remove("whitelist", blockParam.getBlockmobile());
+        }
         return ResponseData.success();
     }
 

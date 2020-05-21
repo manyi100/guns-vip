@@ -101,7 +101,6 @@ public class ContactsController extends BaseController {
         Date birthday = contactsParam.getBirthday();
         if(null==birthday)
             contactsParam.setBirthday(null);
-        contactsParam.setAdddate(new Date());
         this.contactsService.add(contactsParam);
         return ResponseData.success();
     }
