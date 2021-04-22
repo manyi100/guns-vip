@@ -37,7 +37,7 @@
         <oracle.version>11.2.0.3</oracle.version>
         <sqlserver.version>4.0</sqlserver.version>
         <pgsql.version>42.2.5</pgsql.version>
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.7.1</shiro.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <ehcache3.version>3.6.3</ehcache3.version>
         <ehcache2.version>2.10.6</ehcache2.version>
